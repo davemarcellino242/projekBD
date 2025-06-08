@@ -38,12 +38,19 @@ public class ProfilePage {
 
             if(mhs != null){
                 nrpField.setText(mhs.getNrp());
+                nrpField.setEditable(false);
                 namaField.setText(mhs.getNama());
+                namaField.setEditable(false);
                 emailField.setText(mhs.getEmail());
+                emailField.setEditable(false);
                 tanggalLahirField.setText(mhs.getTanggalLahir().toString());
+                tanggalLahirField.setEditable(false);
                 fakultasField.setText(mhs.getNamaFakultas());
+                fakultasField.setEditable(false);
                 prodiField.setText(mhs.getNamaProgramStudi());
+                prodiField.setEditable(false);
                 programField.setText(mhs.getNamaProgram());
+                programField.setEditable(false);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

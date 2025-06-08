@@ -47,7 +47,7 @@ public class myClubPage {
 
             int column = 0;
             int row = 0;
-            double spacingX = 420; // jarak antar kolom (horizontal)
+            double spacingX = 400; // jarak antar kolom (horizontal)
             double spacingY = 240; // jarak antar baris (vertikal)
 
             for (int i = 0; i < keanggotaanList.size(); i++) {

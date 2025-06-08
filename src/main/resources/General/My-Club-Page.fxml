@@ -76,15 +76,6 @@
                     </font>
                 </Button>
                 <ImageView fitHeight="46.0" fitWidth="59.0" layoutX="14.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
-                  <Pane layoutX="21.0" layoutY="278.0" prefHeight="179.0" prefWidth="207.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5); -fx-background-radius: 20;">
-                      <children>
-                          <Text fill="WHITE" layoutX="14.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club Description">
-                              <font>
-                                  <Font name="Berlin Sans FB" size="14.0" />
-                              </font>
-                          </Text>
-                      </children>
-                  </Pane>
             </children>
         </Pane>
         <Pane fx:id="clubContainer" layoutX="271.0" layoutY="14.0" prefHeight="657.0" prefWidth="821.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;">

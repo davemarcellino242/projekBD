@@ -345,31 +345,6 @@
                         </RadialGradient>
                     </stroke>
                 </Text>
-                <Pane layoutX="15.0" layoutY="311.0" prefHeight="264.0" prefWidth="230.0" style="-fx-background-color: white; -fx-background-radius: 20;">
-                    <children>
-                        <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Note :" textAlignment="CENTER" wrappingWidth="95.6666870117188">
-                            <font>
-                                <Font name="Berlin Sans FB" size="18.0" />
-                            </font>
-                            <stroke>
-                                <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
-                                    <stops>
-                                        <Stop>
-                                            <color>
-                                                <Color />
-                                            </color>
-                                        </Stop>
-                                        <Stop offset="1.0">
-                                            <color>
-                                                <Color red="1.0" green="1.0" blue="1.0" />
-                                            </color>
-                                        </Stop>
-                                    </stops>
-                                </RadialGradient>
-                            </stroke>
-                        </Text>
-                    </children>
-                </Pane>
             </children>
         </Pane>
         <Button layoutX="271.0" layoutY="685.0" mnemonicParsing="false" onAction="#onHomePage" prefHeight="35.0" prefWidth="407.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);" text="↩ Back" textFill="WHITE">
