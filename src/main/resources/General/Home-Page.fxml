@@ -18,7 +18,7 @@
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="profilePageHomePage" layoutX="79.0" layoutY="51.0" mnemonicParsing="false" onAction="#profilePage" prefHeight="46.0" prefWidth="156.0" text="Profile">
+                <Button fx:id="profilePageHomePage" layoutX="13.0" layoutY="51.0" mnemonicParsing="false" onAction="#profilePage" prefHeight="46.0" prefWidth="222.0" text="Profile">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
@@ -101,11 +101,6 @@
                 </Text>
             </children>
         </Pane>
-        <Button layoutX="259.0" layoutY="692.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);" text="↩ Back" textFill="WHITE">
-            <font>
-                <Font name="Berlin Sans FB" size="15.0" />
-            </font>
-        </Button>
         <Pane layoutX="270.0" layoutY="264.0" prefHeight="185.0" prefWidth="405.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;" />
         <Pane layoutX="686.0" layoutY="264.0" prefHeight="185.0" prefWidth="405.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;" />
         <Pane layoutX="270.0" layoutY="502.0" prefHeight="177.0" prefWidth="405.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;" />

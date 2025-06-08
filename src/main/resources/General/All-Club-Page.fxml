@@ -19,7 +19,7 @@
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="profileAllClubPage" layoutX="79.0" layoutY="51.0" mnemonicParsing="false" onAction="#profilePage" prefHeight="46.0" prefWidth="156.0" text="Profile">
+                <Button fx:id="profileAllClubPage" layoutX="13.0" layoutY="51.0" mnemonicParsing="false" onAction="#profilePage" prefHeight="46.0" prefWidth="222.0" text="Profile">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
