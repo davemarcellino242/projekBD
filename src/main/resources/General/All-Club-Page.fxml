@@ -196,7 +196,7 @@
                 </Pane>
             </children>
         </Pane>
-        <Button layoutX="271.0" layoutY="685.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="821.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);" text="↩ Back" textFill="WHITE">
+        <Button layoutX="271.0" layoutY="685.0" mnemonicParsing="false" onAction="#onHomePage" prefHeight="35.0" prefWidth="821.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);" text="↩ Back" textFill="WHITE">
             <font>
                 <Font name="Berlin Sans FB" size="15.0" />
             </font>
