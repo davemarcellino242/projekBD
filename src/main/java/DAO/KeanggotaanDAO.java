@@ -11,8 +11,8 @@ import java.util.List;
 public class KeanggotaanDAO {
     private Connection conn;
 
-    public KeanggotaanDAO(Connection conn) {
-        this.conn = conn;
+    public KeanggotaanDAO() throws SQLException {
+        this.conn = DBConnector.connect();
     }
 
     public void insertKeanggotaan(keanggotaan kgt) throws SQLException {
@@ -40,7 +40,7 @@ public class KeanggotaanDAO {
                 mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(nrp);
 
                 int clubId = rs.getInt("club_id");
-                ClubDAO clubDAO = new ClubDAO(conn);
+                ClubDAO clubDAO = new ClubDAO();
                 club club = clubDAO.getClubById(clubId);
                 return new keanggotaan(
                         rs.getInt("keanggotaan_id"),
@@ -53,6 +53,37 @@ public class KeanggotaanDAO {
             }
         }
         return null;
+    }
+
+    public List<keanggotaan> getKeanggotaanByNRP(String nrp) throws SQLException {
+        List<keanggotaan> keanggotaanList = new ArrayList<>();
+        String query = "SELECT * FROM keanggotaan WHERE nrp = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nrp);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String np = rs.getString("nrp");
+                    MahasiswaDAO mahasiswaDAO = new MahasiswaDAO(conn);
+                    mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(np);
+
+                    int clubId = rs.getInt("club_id");
+                    ClubDAO clubDAO = new ClubDAO();
+                    club club = clubDAO.getClubById(clubId);
+                    keanggotaan k = new keanggotaan(
+                            rs.getInt("keanggotaan_id"),
+                            rs.getString("peran"),
+                            rs.getString("status"),
+                            rs.getDate("tanggal_bergabung").toLocalDate(),
+                            mhs,
+                            club
+                    );
+                    keanggotaanList.add(k);
+                }
+            }
+        }
+
+        return keanggotaanList;
     }
 
     public static List<Integer> getClubIdsByNrp(String nrp) {
@@ -83,7 +114,7 @@ public class KeanggotaanDAO {
                 mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(nrp);
 
                 int clubId = rs.getInt("club_id");
-                ClubDAO clubDAO = new ClubDAO(conn);
+                ClubDAO clubDAO = new ClubDAO();
                 club club = clubDAO.getClubById(clubId);
                 list.add(new keanggotaan(
                         rs.getInt("keanggotaan_id"),

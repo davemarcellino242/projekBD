@@ -53,6 +53,10 @@ public class club {
         return kategoriId.getKategoriId();
     }
 
+    public String getNamaKategori() {
+        return kategoriId.getNamaKategori();
+    }
+
     public void setKategoriId(kategoriClub kategoriId) {
         this.kategoriId = kategoriId;
     }

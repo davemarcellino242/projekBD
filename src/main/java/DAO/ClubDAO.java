@@ -3,6 +3,8 @@ package DAO;
 import Model.club;
 import Model.kategoriClub;
 import Model.pendiriClub;
+import db.DBConnector;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,8 @@ import java.util.List;
 public class ClubDAO {
     private Connection conn;
 
-    public ClubDAO(Connection conn) {
-        this.conn = conn;
+    public ClubDAO() throws SQLException {
+        this.conn = DBConnector.connect();
     }
 
     public void insertClub(club club) throws SQLException {

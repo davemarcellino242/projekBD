@@ -36,7 +36,7 @@ public class KegiatanClubDAO {
                 lokasi lks = lokasiDAO.getLokasiById(lokasiId);
 
                 int clubId = rs.getInt("club_id");
-                ClubDAO clubDAO = new ClubDAO(conn);
+                ClubDAO clubDAO = new ClubDAO();
                 club club = clubDAO.getClubById(clubId);
 
                 int jenisKegiatanId = rs.getInt("jenis_kegiatan_id");
@@ -65,7 +65,7 @@ public class KegiatanClubDAO {
                 lokasi lks = lokasiDAO.getLokasiById(lokasiId);
 
                 int clubId = rs.getInt("club_id");
-                ClubDAO clubDAO = new ClubDAO(conn);
+                ClubDAO clubDAO = new ClubDAO();
                 club club = clubDAO.getClubById(clubId);
 
                 int jenisKegiatanId = rs.getInt("jenis_kegiatan_id");

@@ -29,9 +29,19 @@ public class PendiriClubDAO {
             stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                String organisasiProfessionalId = rs.getString("organisasi_profesional_id");
                 OrganisasiProfessionalDAO pdao = new OrganisasiProfessionalDAO(conn);
-                organisasiProfessional op = pdao.getOrganisasiProfessionalById(organisasiProfessionalId);
+                organisasiProfessional op = null;
+
+                try {
+                    // Coba ambil kolom organisasi_profesional_id jika ada
+                    String organisasiProfessionalId = rs.getString("organisasi_profesional_id");
+                    if (organisasiProfessionalId != null) {
+                        op = pdao.getOrganisasiProfessionalById(organisasiProfessionalId);
+                    }
+                } catch (SQLException | RuntimeException e) {
+                    // Kolom tidak ditemukan atau error lainnya → biarkan op tetap null
+                }
+
                 return new pendiriClub(
                         rs.getString("pendiri_club_id"),
                         rs.getString("nama_pendiri_club"),
@@ -41,6 +51,7 @@ public class PendiriClubDAO {
         }
         return null;
     }
+
 
     public List<pendiriClub> getAllPendiriClub() throws SQLException {
         List<pendiriClub> list = new ArrayList<>();
