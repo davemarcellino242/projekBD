@@ -109,4 +109,5 @@ public class ProfilePage {
 
         stage.show();
     }
+
 }
