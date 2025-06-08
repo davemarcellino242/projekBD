@@ -38,7 +38,7 @@ public class RegistrasiDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String nrp = rs.getString("nrp");
-                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO(conn);
+                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO();
                 Model.mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(nrp);
 
                 int kegiatanId = rs.getInt("kegiatan_id");
@@ -63,7 +63,7 @@ public class RegistrasiDAO {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 String nrp = rs.getString("nrp");
-                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO(conn);
+                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO();
                 Model.mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(nrp);
 
                 int kegiatanId = rs.getInt("kegiatan_id");

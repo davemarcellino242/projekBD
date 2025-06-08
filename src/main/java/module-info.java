@@ -3,6 +3,7 @@ module com.example.p1 {
     requires javafx.fxml;
     requires java.sql;
     requires jdk.jdi;
+    requires java.desktop;
 
 
     opens clubApp to javafx.fxml;

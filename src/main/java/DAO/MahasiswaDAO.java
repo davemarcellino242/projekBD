@@ -4,6 +4,7 @@ import Model.fakultas;
 import Model.mahasiswa;
 import Model.program;
 import Model.programStudi;
+import db.DBConnector;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.List;
 public class MahasiswaDAO {
     private Connection conn;
 
-    public MahasiswaDAO(Connection conn) {
-        this.conn = conn;
+    public MahasiswaDAO() throws SQLException {
+        this.conn = DBConnector.connect();
     }
 
     public void insertMahasiswa(mahasiswa mhs) throws SQLException {

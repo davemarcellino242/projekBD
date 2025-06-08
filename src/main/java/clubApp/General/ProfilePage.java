@@ -31,7 +31,7 @@ public class ProfilePage {
     public void initialize(){
         try{
             conn = DBConnector.connect();
-            MahasiswaDAO dao = new MahasiswaDAO(conn);
+            MahasiswaDAO dao = new MahasiswaDAO();
 
             String currentUserNrp = SessionManager.getCurrentUser().getNrp();
             mahasiswa mhs = dao.getMahasiswaByNrp(currentUserNrp);

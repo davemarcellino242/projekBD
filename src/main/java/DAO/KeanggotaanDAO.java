@@ -36,7 +36,7 @@ public class KeanggotaanDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String nrp = rs.getString("nrp");
-                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO(conn);
+                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO();
                 mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(nrp);
 
                 int clubId = rs.getInt("club_id");
@@ -55,6 +55,18 @@ public class KeanggotaanDAO {
         return null;
     }
 
+    public int getNextKeanggotaanId() throws SQLException {
+        String query = "SELECT MAX(keanggotaan_id) FROM keanggotaan";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                return rs.getInt(1) + 1;
+            }
+        }
+        return 1;
+    }
+
     public List<keanggotaan> getKeanggotaanByNRP(String nrp) throws SQLException {
         List<keanggotaan> keanggotaanList = new ArrayList<>();
         String query = "SELECT * FROM keanggotaan WHERE nrp = ?";
@@ -64,7 +76,7 @@ public class KeanggotaanDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     String np = rs.getString("nrp");
-                    MahasiswaDAO mahasiswaDAO = new MahasiswaDAO(conn);
+                    MahasiswaDAO mahasiswaDAO = new MahasiswaDAO();
                     mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(np);
 
                     int clubId = rs.getInt("club_id");
@@ -110,7 +122,7 @@ public class KeanggotaanDAO {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 String nrp = rs.getString("nrp");
-                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO(conn);
+                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO();
                 mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(nrp);
 
                 int clubId = rs.getInt("club_id");
