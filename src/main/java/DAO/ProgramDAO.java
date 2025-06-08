@@ -21,8 +21,6 @@ public class ProgramDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String programStudiId = rs.getString("program_studi_id");
-
-                // Ambil objek programStudi
                 ProgramStudiDAO psDAO = new ProgramStudiDAO(conn);
                 programStudi ps = psDAO.getProgramStudiById(programStudiId);
 
