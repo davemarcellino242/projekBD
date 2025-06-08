@@ -1,6 +1,6 @@
 package clubApp;
 
-import currentUser.CurrentUser;
+import currentUser.SessionManager;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class CheckAllFollowedClub {
                     "JOIN data_club d ON (k.club_id = d.club_id)\n" +
                     "WHERE k.nrp = ? ";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,CurrentUser.getCurrentUserNRP());
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 temp += String.valueOf(count)+". "+rs.getString("nama_club")+"\n";

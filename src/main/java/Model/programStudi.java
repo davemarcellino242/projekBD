@@ -34,4 +34,8 @@ public class programStudi {
     public void setFakultasId(fakultas fakultasId) {
         this.fakultasId = fakultasId;
     }
+
+    public fakultas getFakultas() {
+        return fakultasId;
+    }
 }

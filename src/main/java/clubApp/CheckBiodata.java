@@ -1,6 +1,6 @@
 package clubApp;
 
-import currentUser.CurrentUser;
+import currentUser.SessionManager;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +48,7 @@ public class CheckBiodata {
         try (Connection conn = DBConnector.connect()) {
             String query = "SELECT * FROM data_mahasiswa WHERE nrp = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,CurrentUser.getCurrentUserNRP());
+
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
                 nrp.setText("NRP : "+rs.getString("nrp"));

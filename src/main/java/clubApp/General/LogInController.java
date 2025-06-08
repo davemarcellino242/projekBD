@@ -1,5 +1,6 @@
 package clubApp.General;
 
+import currentUser.SessionManager;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,48 +40,77 @@ public class LogInController {
             return;
         }
 
-        String namaMhs = null;
-        try(Connection conn = DBConnector.connect()){
-            String query2  = "SELECT nama FROM data_mahasiswa WHERE nrp = ?";
-            PreparedStatement stmt = conn.prepareStatement(query2);
-            stmt.setString(1, nrp);
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next()) {
-                namaMhs = rs.getString("nama");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         try (Connection conn = DBConnector.connect()) {
-            String query = "SELECT tanggal_lahir, signup FROM data_mahasiswa WHERE nrp = ?";
+            String query = """
+            SELECT m.nrp, m.nama, m.email, m.tanggal_lahir, m.signup,
+                   p.program_id, p.nama_program,
+                   ps.program_studi_id, ps.nama_program_studi,
+                   f.fakultas_id, f.nama_fakultas
+            FROM data_mahasiswa m
+            JOIN program p ON m.program_id = p.program_id
+            JOIN program_studi ps ON p.program_studi_id = ps.program_studi_id
+            JOIN fakultas f ON ps.fakultas_id = f.fakultas_id
+            WHERE m.nrp = ?
+        """;
+
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, nrp);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String signUpStatus = rs.getString("signup");
-
-                if (!"yes".equalsIgnoreCase(signUpStatus)) {
-                    showAlert(Alert.AlertType.WARNING, "Akun Belum Terdaftar", "Akun belum tedaftar, silakan lakukan sign up terlebih dahulu.");
+                String signup = rs.getString("signup");
+                if (!"yes".equalsIgnoreCase(signup)) {
+                    showAlert(Alert.AlertType.WARNING, "Akun Belum Terdaftar", "Silakan sign up terlebih dahulu.");
                     return;
                 }
 
                 LocalDate tanggalLahir = rs.getDate("tanggal_lahir").toLocalDate();
                 String expectedPassword = tanggalLahir.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-                if (expectedPassword.equals(inputPassword)) {
-                    showAlert(Alert.AlertType.INFORMATION, "Login Berhasil", "Selamat datang " +  namaMhs + "!");
-                    switchToHomePage(event);
-                } else {
+                if (!inputPassword.equals(expectedPassword)) {
                     showAlert(Alert.AlertType.ERROR, "Login Gagal", "Password salah!");
+                    return;
                 }
+
+                // Bangun objek dari tabel berelasi
+                Model.fakultas f = new Model.fakultas(
+                        rs.getString("fakultas_id"),
+                        rs.getString("nama_fakultas")
+                );
+                Model.programStudi ps = new Model.programStudi(
+                        rs.getString("program_studi_id"),
+                        rs.getString("nama_program_studi"),
+                        f
+                );
+                Model.program p = new Model.program(
+                        rs.getString("program_id"),
+                        rs.getString("nama_program"),
+                        ps
+                );
+
+                Model.mahasiswa mhs = new Model.mahasiswa(
+                        rs.getString("nrp"),
+                        rs.getString("nama"),
+                        rs.getString("email"),
+                        tanggalLahir,
+                        p,
+                        true
+                );
+
+                // Simpan user ke session
+                SessionManager.setCurrentUser(mhs);
+
+                // Lanjut ke halaman berikut
+                showAlert(Alert.AlertType.INFORMATION, "Login Berhasil", "Selamat datang " + mhs.getNama() + "!");
+                switchToHomePage(event);
+
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Gagal", "NRP tidak ditemukan.");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Kesalahan", "Terjadi kesalahan koneksi ke database.");
+            showAlert(Alert.AlertType.ERROR, "Kesalahan", "Terjadi kesalahan pada koneksi database.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

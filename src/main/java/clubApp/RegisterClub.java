@@ -1,6 +1,6 @@
 package clubApp;
 
-import currentUser.CurrentUser;
+import currentUser.SessionManager;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +43,7 @@ public class RegisterClub {
                     "\tWHERE nrp = ? " +
                     ")";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,CurrentUser.getCurrentUserNRP());
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 temp += count +". "+rs.getString("club_id")+"\n";
@@ -96,7 +96,7 @@ public class RegisterClub {
             try(Connection conn = DBConnector.connect()){
                 String query = "SELECT * FROM keanggotaan WHERE nrp = ?";
                 PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1,CurrentUser.getCurrentUserNRP());
+
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()){
                     password = rs.getString("password");
@@ -110,7 +110,7 @@ public class RegisterClub {
         try(Connection conn = DBConnector.connect()){
             String query = "SELECT * FROM keanggotaan WHERE nrp = ? AND club_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,CurrentUser.getCurrentUserNRP());
+
             stmt.setString(2,kode);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
@@ -128,7 +128,7 @@ public class RegisterClub {
                 stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
                 stmt.setString(2,"Active");
                 stmt.setString(3,"Member");
-                stmt.setString(4,CurrentUser.getCurrentUserNRP());
+
                 stmt.setString(5,kode);
                 stmt.setString(6,password);
                 stmt.setInt(7,max);

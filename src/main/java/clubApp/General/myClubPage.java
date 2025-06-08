@@ -1,5 +1,6 @@
 package clubApp.General;
 
+import currentUser.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,6 +70,7 @@ public class myClubPage {
     public void logOutPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Log_in.fxml"));
         Parent root = loader.load();
+        SessionManager.clearSession();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Login page");

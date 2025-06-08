@@ -1,6 +1,6 @@
 package clubApp;
 
-import currentUser.CurrentUser;
+import currentUser.SessionManager;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,8 +54,7 @@ public class RegistrasiKegiatan {
                     "    WHERE k.nrp = ? \n" +
                     ");\n";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,CurrentUser.getCurrentUserNRP());
-            stmt.setString(2,CurrentUser.getCurrentUserNRP());
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 temp += count+". "+rs.getString("nama_kegiatan")+"\n";
@@ -105,7 +104,7 @@ public class RegistrasiKegiatan {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1,"Verified");
             stmt.setDate(2,java.sql.Date.valueOf(LocalDate.now()));
-            stmt.setString(3,CurrentUser.getCurrentUserNRP());
+
             stmt.setString(4,kodePilih);
             stmt.setInt(5,max);
             int rowInserted = stmt.executeUpdate();
@@ -132,8 +131,7 @@ public class RegistrasiKegiatan {
                     "    WHERE k.nrp = ? \n" +
                     ");\n";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,CurrentUser.getCurrentUserNRP());
-            stmt.setString(2,CurrentUser.getCurrentUserNRP());
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 temp += count+". "+rs.getString("nama_kegiatan")+"\n";

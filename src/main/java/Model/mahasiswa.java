@@ -71,4 +71,18 @@ public class mahasiswa {
     public void setSignup(boolean signup) {
         this.signup = signup;
     }
+
+    public String getNamaProgram() {
+        return programID.getNamaProgram(); // misalnya kamu punya ini
+    }
+
+    public String getNamaFakultas() {
+        return programID.getStudi().getFakultas().getNamaFakultas();
+    }
+
+    public String getNamaProgramStudi() {
+        return programID.getStudi().getNamaProgramStudi();
+    }
+
+
 }

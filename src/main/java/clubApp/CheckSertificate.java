@@ -1,6 +1,6 @@
 package clubApp;
 
-import currentUser.CurrentUser;
+import currentUser.SessionManager;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +31,7 @@ public class CheckSertificate {
                     "JOIN data_club dc ON (k.club_id = dc.club_id) WHERE d.nrp = ?";
 
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, CurrentUser.getCurrentUserNRP());
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 temp += count +". "+rs.getString("nama_kegiatan")+"\n";

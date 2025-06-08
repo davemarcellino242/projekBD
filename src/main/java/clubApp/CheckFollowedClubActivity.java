@@ -1,6 +1,6 @@
 package clubApp;
 
-import currentUser.CurrentUser;
+import currentUser.SessionManager;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class CheckFollowedClubActivity {
                     "JOIN kegiatan_club k ON (d.kegiatan_id = k.kegiatan_id)\n" +
                     "JOIN jadwal j ON (k.kegiatan_id = j.kegiatan_id) WHERE d.nrp = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, CurrentUser.getCurrentUserNRP());
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 temp += count +". "+rs.getString("nama_kegiatan")+"\n";

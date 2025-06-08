@@ -20,7 +20,7 @@ public class ProgramStudiDAO {
             stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                String fakultasId = rs.getString("fakultasId");
+                String fakultasId = rs.getString("fakultas_Id");
                 FakultasDAO fakultasDAO = new FakultasDAO(conn);
                 fakultas fak = fakultasDAO.getFakultasById(fakultasId);
                 return new programStudi(
@@ -39,7 +39,7 @@ public class ProgramStudiDAO {
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                String fakultasId = rs.getString("fakultasId");
+                String fakultasId = rs.getString("fakultas_Id");
                 FakultasDAO fakultasDAO = new FakultasDAO(conn);
                 fakultas fak = fakultasDAO.getFakultasById(fakultasId);
                 list.add(new programStudi(

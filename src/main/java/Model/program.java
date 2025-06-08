@@ -39,4 +39,8 @@ public class program {
     public String toString() {
         return namaProgram;
     }
+
+    public programStudi getStudi() {
+        return programStudiId;
+    }
 }
