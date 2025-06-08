@@ -2,6 +2,8 @@ package DAO;
 
 import Model.keanggotaan;
 import Model.*;
+import db.DBConnector;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,23 @@ public class KeanggotaanDAO {
             }
         }
         return null;
+    }
+
+    public static List<Integer> getClubIdsByNrp(String nrp) {
+        List<Integer> clubIds = new ArrayList<>();
+        String query = "SELECT club_id FROM keanggotaan WHERE nrp = ?";
+
+        try (Connection conn = DBConnector.connect();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nrp);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                clubIds.add(rs.getInt("club_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clubIds;
     }
 
     public List<keanggotaan> getAllKeanggotaan() throws SQLException {
