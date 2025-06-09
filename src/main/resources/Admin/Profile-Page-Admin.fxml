@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1107.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0, #e0e0e0);;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clubApp.General.ProfilePage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1107.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0, #e0e0e0);;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clubApp.Admin.ProfilePageAdmin">
     <children>
         <Pane prefHeight="734.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);;">
             <children>
@@ -21,17 +21,12 @@
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="profilePage" layoutX="13.0" layoutY="51.0" mnemonicParsing="false" onAction="#profilePage" prefHeight="46.0" prefWidth="222.0" text="Profile">
+                <Button fx:id="profilePageAdmin" layoutX="13.0" layoutY="51.0" mnemonicParsing="false" onAction="#profilePageAdmin" prefHeight="46.0" prefWidth="222.0" text="Profile">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="homeProfilePage" layoutX="13.0" layoutY="105.0" mnemonicParsing="false" onAction="#onHomePage" prefHeight="25.0" prefWidth="222.0" text="☖ Home">
-                    <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                    </font>
-                </Button>
-                <Button fx:id="allClubProfilePage" layoutX="13.0" layoutY="139.0" mnemonicParsing="false" onAction="#allClubPage" prefHeight="25.0" prefWidth="222.0" text=" ♨ All Club">
+                <Button layoutX="13.0" layoutY="105.0" mnemonicParsing="false" onAction="#onHomePageAdmin" prefHeight="25.0" prefWidth="222.0" text="☖ Home">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
@@ -62,17 +57,17 @@
                         </RadialGradient>
                     </stroke>
                 </Text>
-                <Button fx:id="myClubProfilePage" layoutX="13.0" layoutY="173.0" mnemonicParsing="false" onAction="#myClubPage" prefHeight="25.0" prefWidth="222.0" text=" ✠My Club">
+                <Button fx:id="personalClubPageAdmin" layoutX="13.0" layoutY="139.0" mnemonicParsing="false" onAction="#personalClubPageAdmin" prefHeight="25.0" prefWidth="222.0" text=" ✠Personal Club">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
                 </Button>
-                <Button layoutX="13.0" layoutY="624.0" mnemonicParsing="false" onAction="#homePageAdmin" prefHeight="25.0" prefWidth="222.0" text="♔ Admin">
+                <Button layoutX="13.0" layoutY="624.0" mnemonicParsing="false" onAction="#onHomePage" prefHeight="25.0" prefWidth="222.0" text="Member">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="eventProfilePage" layoutX="13.0" layoutY="208.0" mnemonicParsing="false" onAction="#eventPage" prefHeight="25.0" prefWidth="222.0" text="〄 Event" textAlignment="CENTER">
+                <Button fx:id="eventProfilePage" layoutX="13.0" layoutY="173.0" mnemonicParsing="false" onAction="#eventPage" prefHeight="25.0" prefWidth="222.0" text="〄 Event Date" textAlignment="CENTER">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
@@ -83,9 +78,9 @@
         <Pane layoutX="271.0" layoutY="14.0" prefHeight="599.0" prefWidth="821.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;">
             <children>
                 <ImageView fitHeight="242.0" fitWidth="210.0" layoutX="25.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Image/bbb.jpeg" />
-               </image></ImageView>
+                    <image>
+                        <Image url="@../Image/bbb.jpeg" />
+                    </image></ImageView>
                 <Pane layoutX="267.0" layoutY="66.0" prefHeight="46.0" prefWidth="527.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
                         <Pane layoutX="14.0" layoutY="6.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5); -fx-background-radius: 20;">
@@ -113,11 +108,11 @@
                                 </Text>
                             </children>
                         </Pane>
-                  <TextField fx:id="nrpField" layoutX="132.0" layoutY="11.0" prefHeight="25.0" prefWidth="377.0">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="nrpField" layoutX="132.0" layoutY="11.0" prefHeight="25.0" prefWidth="377.0">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
                 <Pane layoutX="267.0" layoutY="146.0" prefHeight="46.0" prefWidth="527.0" style="-fx-background-color: white; -fx-background-radius: 20;">
@@ -147,11 +142,11 @@
                                 </Text>
                             </children>
                         </Pane>
-                  <TextField fx:id="namaField" layoutX="134.0" layoutY="8.0" prefHeight="25.0" prefWidth="377.0">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="namaField" layoutX="134.0" layoutY="8.0" prefHeight="25.0" prefWidth="377.0">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
                 <Pane layoutX="267.0" layoutY="221.0" prefHeight="46.0" prefWidth="527.0" style="-fx-background-color: white; -fx-background-radius: 20;">
@@ -181,11 +176,11 @@
                                 </Text>
                             </children>
                         </Pane>
-                  <TextField fx:id="emailField" layoutX="133.0" layoutY="9.0" prefHeight="25.0" prefWidth="377.0">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="emailField" layoutX="133.0" layoutY="9.0" prefHeight="25.0" prefWidth="377.0">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
                 <Pane layoutX="267.0" layoutY="297.0" prefHeight="46.0" prefWidth="527.0" style="-fx-background-color: white; -fx-background-radius: 20;">
@@ -215,11 +210,11 @@
                                 </Text>
                             </children>
                         </Pane>
-                  <TextField fx:id="tanggalLahirField" layoutX="131.0" layoutY="7.0" prefHeight="25.0" prefWidth="377.0">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="tanggalLahirField" layoutX="131.0" layoutY="7.0" prefHeight="25.0" prefWidth="377.0">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
                 <Pane layoutX="267.0" layoutY="373.0" prefHeight="46.0" prefWidth="527.0" style="-fx-background-color: white; -fx-background-radius: 20;">
@@ -249,11 +244,11 @@
                                 </Text>
                             </children>
                         </Pane>
-                  <TextField fx:id="fakultasField" layoutX="133.0" layoutY="7.0" prefHeight="25.0" prefWidth="377.0">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="fakultasField" layoutX="133.0" layoutY="7.0" prefHeight="25.0" prefWidth="377.0">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
                 <Pane layoutX="267.0" layoutY="446.0" prefHeight="46.0" prefWidth="527.0" style="-fx-background-color: white; -fx-background-radius: 20;">
@@ -283,11 +278,11 @@
                                 </Text>
                             </children>
                         </Pane>
-                  <TextField fx:id="prodiField" layoutX="134.0" layoutY="7.0" prefHeight="25.0" prefWidth="377.0">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="prodiField" layoutX="134.0" layoutY="7.0" prefHeight="25.0" prefWidth="377.0">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
                 <Pane layoutX="267.0" layoutY="523.0" prefHeight="46.0" prefWidth="527.0" style="-fx-background-color: white; -fx-background-radius: 20;">
@@ -317,11 +312,11 @@
                                 </Text>
                             </children>
                         </Pane>
-                  <TextField fx:id="programField" layoutX="134.0" layoutY="9.0" prefHeight="25.0" prefWidth="377.0">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="programField" layoutX="134.0" layoutY="9.0" prefHeight="25.0" prefWidth="377.0">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
                 <Text fill="WHITE" layoutX="276.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile" wrappingWidth="247.33333333333331">
@@ -347,7 +342,7 @@
                 </Text>
             </children>
         </Pane>
-        <Button layoutX="271.0" layoutY="685.0" mnemonicParsing="false" onAction="#onHomePage" prefHeight="35.0" prefWidth="407.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);" text="↩ Back" textFill="WHITE">
+        <Button layoutX="271.0" layoutY="685.0" mnemonicParsing="false" onAction="#onHomePageAdmin" prefHeight="35.0" prefWidth="407.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);" text="↩ Back" textFill="WHITE">
             <font>
                 <Font name="Berlin Sans FB" size="15.0" />
             </font>

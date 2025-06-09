@@ -14,4 +14,6 @@ module com.example.p1 {
     opens currentUser to javafx.fxml;
     exports clubApp.General;
     opens clubApp.General to javafx.fxml;
+    exports clubApp.Admin;
+    opens clubApp.Admin to javafx.fxml;
 }

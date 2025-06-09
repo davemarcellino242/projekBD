@@ -296,7 +296,16 @@ public class AllClubPage {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Login page");
-
         stage.show();
+    }
+
+    public void homePageAdmin(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Home-Page-Admin.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Home Page Admin");
+        stage.show();
+        stage.centerOnScreen();
     }
 }
