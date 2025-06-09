@@ -14,7 +14,6 @@ import java.sql.SQLException;
 
 public class AddUpdateNewClubPage {
 
-
     @FXML
     public void profilePageAdmin(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Profile-Page-Admin.fxml"));

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1107.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0, #e0linear-gradient(to bottom, #B9FBC0, #34D399, #059669);0e0);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane prefHeight="734.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);;">
+            <children>
+                <Button layoutX="13.0" layoutY="695.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text="⤮ Log Out">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="14.0" layoutY="48.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="222.0" text="Profile">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="13.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text="☖ Home">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="13.0" layoutY="660.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text=" ❉ Setting">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Text fill="WHITE" layoutX="13.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Petra Club Hub" wrappingWidth="247.33333333333331">
+                    <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+                <Button layoutX="13.0" layoutY="140.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text=" ✠Personal Club">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="13.0" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text="〄 Event Date" textAlignment="CENTER">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="13.0" layoutY="625.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text="Member">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+        <Pane layoutX="271.0" layoutY="14.0" prefHeight="200.0" prefWidth="821.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;">
+            <children>
+                <Text fill="WHITE" layoutX="139.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Date Page" textAlignment="CENTER" wrappingWidth="543.3333943684895">
+                    <font>
+                        <Font name="Berlin Sans FB" size="64.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+            </children>
+        </Pane>
+        <Pane layoutX="270.0" layoutY="264.0" prefHeight="173.0" prefWidth="821.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;">
+            <children>
+                <Button layoutX="16.0" layoutY="132.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="258.0" style="-fx-background-color: linear-gradient(to bottom, #B9FBC0, #34D399, #059669);;" text="✎ Update Event" textAlignment="CENTER">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Text fill="WHITE" layoutX="25.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Event : " textAlignment="CENTER" wrappingWidth="116.6666870117187">
+                    <font>
+                        <Font name="Berlin Sans FB" size="17.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+                <Button layoutX="549.0" layoutY="131.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(to bottom, #FF6B6B, #FF0000, #990000);;" text=" ⊠ Delete Event" textAlignment="CENTER">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Text fill="WHITE" layoutX="17.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jenis Event : " textAlignment="CENTER" wrappingWidth="116.6666870117187">
+                    <font>
+                        <Font name="Berlin Sans FB" size="17.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+                <Text fill="WHITE" layoutX="432.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jadwal Event : " textAlignment="CENTER" wrappingWidth="116.6666870117187">
+                    <font>
+                        <Font name="Berlin Sans FB" size="17.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+                <Text fill="WHITE" layoutX="406.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lokasi :" textAlignment="CENTER" wrappingWidth="116.6666870117187">
+                    <font>
+                        <Font name="Berlin Sans FB" size="17.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+                <TextField layoutX="170.0" layoutY="19.0" />
+                <ComboBox layoutX="170.0" layoutY="54.0" prefWidth="150.0" />
+                <Text fill="WHITE" layoutX="18.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club :" textAlignment="CENTER" wrappingWidth="69.99999999999994">
+                    <font>
+                        <Font name="Berlin Sans FB" size="17.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+                <ComboBox layoutX="169.0" layoutY="90.0" prefWidth="150.0" />
+                <TextField layoutX="549.0" layoutY="19.0" />
+                <Button layoutX="291.0" layoutY="131.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="240.0" text="👁 View Info" textAlignment="CENTER">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <TextField layoutX="549.0" layoutY="53.0" />
+            </children></Pane>
+        <Text fill="#07b9ff" layoutX="270.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Event &gt;" wrappingWidth="382.6666768391927">
+            <font>
+                <Font name="Berlin Sans FB" size="26.0" />
+            </font>
+            <stroke>
+                <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="1.0" green="1.0" blue="1.0" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </RadialGradient>
+            </stroke>
+        </Text>
+    </children>
+</AnchorPane>
