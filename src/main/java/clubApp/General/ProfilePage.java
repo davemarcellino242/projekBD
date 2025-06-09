@@ -83,6 +83,7 @@ public class ProfilePage {
         stage.setScene(new Scene(root));
         stage.setTitle("All Club Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -93,6 +94,7 @@ public class ProfilePage {
         stage.setScene(new Scene(root));
         stage.setTitle("My Club Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -103,6 +105,7 @@ public class ProfilePage {
         stage.setScene(new Scene(root));
         stage.setTitle("Event Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -113,8 +116,8 @@ public class ProfilePage {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Login page");
-
         stage.show();
+        stage.centerOnScreen();
     }
 
     public void homePageAdmin(ActionEvent event) throws IOException {

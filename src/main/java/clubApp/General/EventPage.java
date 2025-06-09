@@ -26,6 +26,7 @@ public class EventPage {
         stage.setScene(new Scene(root));
         stage.setTitle("Profile Page");
         stage.show();
+        stage.centerOnScreen();
     }
     @FXML
     public void profilePage(ActionEvent event) throws IOException, SQLException {
@@ -35,6 +36,7 @@ public class EventPage {
         stage.setScene(new Scene(root));
         stage.setTitle("Profile Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -45,6 +47,7 @@ public class EventPage {
         stage.setScene(new Scene(root));
         stage.setTitle("All Club Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -55,6 +58,7 @@ public class EventPage {
         stage.setScene(new Scene(root));
         stage.setTitle("My Club Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -65,6 +69,7 @@ public class EventPage {
         stage.setScene(new Scene(root));
         stage.setTitle("Event Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -75,8 +80,8 @@ public class EventPage {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Login page");
-
         stage.show();
+        stage.centerOnScreen();
     }
 
     public void homePageAdmin(ActionEvent event) throws IOException {

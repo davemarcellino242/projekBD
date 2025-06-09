@@ -14,6 +14,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Login Club App");
         stage.setScene(scene);
         stage.show();
+        stage.centerOnScreen();
     }
 
     public static void main(String[] args) {

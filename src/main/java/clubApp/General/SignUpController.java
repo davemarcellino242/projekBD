@@ -135,6 +135,7 @@ public class SignUpController {
         stage.setScene(new Scene(root));
         stage.setTitle("Log in Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     public void back(ActionEvent event)throws IOException {
@@ -144,6 +145,7 @@ public class SignUpController {
         stage.setScene(new Scene(root));
         stage.setTitle("Admin Main Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
 }

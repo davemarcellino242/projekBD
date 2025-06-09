@@ -133,6 +133,7 @@ public class LogInController {
         stage.setScene(new Scene(root));
         stage.setTitle("Home page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -143,5 +144,6 @@ public class LogInController {
         stage.setScene(new Scene(root));
         stage.setTitle("Sign up");
         stage.show();
+        stage.centerOnScreen();
     }
 }

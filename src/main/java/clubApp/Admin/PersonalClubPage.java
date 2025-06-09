@@ -46,8 +46,8 @@ public class PersonalClubPage {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Login page");
-
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -58,6 +58,7 @@ public class PersonalClubPage {
         stage.setScene(new Scene(root));
         stage.setTitle("Profile Page");
         stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
