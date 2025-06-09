@@ -1,6 +1,11 @@
 package clubApp.Admin;
 
+import java.sql.Connection;
+
+import DAO.MahasiswaDAO;
+import Model.mahasiswa;
 import currentUser.SessionManager;
+import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +13,33 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class HomePageAdmin {
+    @FXML
+    private Connection conn;
+    @FXML
+    private Text WelcomeText;
+    public void initialize(){
+        try{
+            conn = DBConnector.connect();
+            MahasiswaDAO dao = new MahasiswaDAO();
+
+            String currentUserNrp = SessionManager.getCurrentUser().getNrp();
+            mahasiswa mhs = dao.getMahasiswaByNrp(currentUserNrp);
+
+            String username = mhs.getNama();
+            WelcomeText.setText("Welcome " + username + " to our admin page");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     public void profilePageAdmin(ActionEvent event) throws IOException {

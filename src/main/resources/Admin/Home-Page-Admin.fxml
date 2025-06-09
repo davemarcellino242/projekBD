@@ -73,7 +73,7 @@
         </Pane>
         <Pane layoutX="271.0" layoutY="14.0" prefHeight="200.0" prefWidth="821.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;">
             <children>
-                <Text fill="WHITE" layoutX="261.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome (Name) to our admin page" wrappingWidth="299.3333333333333">
+                <Text fx:id="WelcomeText" fill="WHITE" layoutX="40.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="740.1332906087239">
                     <font>
                         <Font name="Berlin Sans FB" size="36.0" />
                     </font>
