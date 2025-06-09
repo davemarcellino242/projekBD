@@ -42,6 +42,16 @@ public class HomePageAdmin {
     }
 
     @FXML
+    public void addNewClub(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Add-Update-New-Club-Page.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Add / Update New Club");
+        stage.show();
+        stage.centerOnScreen();
+    }
+    @FXML
     public void profilePageAdmin(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Profile-Page-Admin.fxml"));
         Parent root = loader.load();
