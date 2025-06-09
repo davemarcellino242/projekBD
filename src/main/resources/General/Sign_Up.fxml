@@ -55,7 +55,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text fill="#9a9ca1" layoutX="87.0" layoutY="213.0" stroke="#5e6166" strokeType="OUTSIDE" strokeWidth="0.0" text="dengan format : YYYYDDMM, cth: 2006224" wrappingWidth="403.7366943359375">
+            <Text fill="#9a9ca1" layoutX="87.0" layoutY="213.0" stroke="#5e6166" strokeType="OUTSIDE" strokeWidth="0.0" text="dengan format : YYYYDDMM, cth: 20060224" wrappingWidth="403.7366943359375">
                <font>
                   <Font size="15.0" />
                </font>
