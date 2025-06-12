@@ -15,6 +15,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class AddUpdateNewClubPage {
 
@@ -28,198 +33,250 @@ public class AddUpdateNewClubPage {
     @FXML private TextArea deskripsiClub;
     @FXML private ComboBox<Integer> pilihanKe;
 
-    int tempPilihan = 1;
-    int clubIdCurrent = 0;
+    private final List<Integer> clubIds = new ArrayList<>();
+    private int clubIdCurrent = 0;
 
     @FXML
     public void initialize() {
-        for (int i = 1; i <= 2; i++) {
-            pilihanKe.getItems().add(i);
-        }
+        loadUserClubs();
+        pilihanKe.getItems().addAll(1, 2);
+
         pilihanKe.setOnAction(e -> {
-            tempPilihan = pilihanKe.getValue();
-            loadClubByIndex(tempPilihan);
+            int selectedIndex = pilihanKe.getValue() - 1;
+            if (selectedIndex < clubIds.size()) {
+                loadClubById(clubIds.get(selectedIndex));
+            } else {
+                clearAllFields();
+            }
         });
-        loadClubByIndex(tempPilihan);
+
+        pilihanKe.setValue(1);
+        if (!clubIds.isEmpty()) {
+            loadClubById(clubIds.get(0));
+        } else {
+            clearAllFields();
+        }
     }
 
-    public void loadClubByIndex(int index) {
+    private void loadUserClubs() {
         try (Connection conn = DBConnector.connect()) {
-            String query = "SELECT * FROM data_club d " +
+            String query = "SELECT d.club_id FROM data_club d " +
                     "JOIN keanggotaan k ON d.club_id = k.club_id " +
-                    "JOIN kategori_club ka ON d.kategori_id = ka.kategori_id " +
-                    "JOIN pendiri_club p ON d.pendiri_club_id = p.pendiri_club_id " +
-                    "LEFT JOIN organisasi_professional o ON p.organisasi_professional_id = o.organisasi_professional_id " +
                     "WHERE k.peran = 'Admin' AND k.nrp = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, SessionManager.getCurrentUser().getNrp());
             ResultSet rs = stmt.executeQuery();
-            int count = 1;
+
             while (rs.next()) {
-                if (count == index) {
-                    namaClub.setText(rs.getString("nama_club"));
-                    namaPendiriClub.setText(rs.getString("nama_pendiri_club"));
-                    idPendiriClub.setText(rs.getString("pendiri_club_id"));
-                    organisasiProfessional.setText(rs.getString("nama_organisasi_professional"));
-                    idOrganisasiProfessional.setText(rs.getString("organisasi_professional_id"));
-                    kategoriClub.setText(rs.getString("nama_kategori"));
-                    tahunBerdiriClub.setText(String.valueOf(rs.getInt("tahun_berdiri_club")));
-                    deskripsiClub.setText(rs.getString("deskripsi_club"));
-                    clubIdCurrent = rs.getInt("club_id");
-                    break;
-                }
-                count++;
+                clubIds.add(rs.getInt("club_id"));
             }
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadClubById(int clubId) {
+        try (Connection conn = DBConnector.connect()) {
+            String query = "SELECT d.nama_club, p.nama_pendiri_club, p.pendiri_club_id, " +
+                    "o.organisasi_professional, o.organisasi_professional_id, " +
+                    "ka.nama_kategori, d.tahun_berdiri_club, d.deskripsi_club " +
+                    "FROM data_club d " +
+                    "JOIN pendiri_club p ON d.pendiri_club_id = p.pendiri_club_id " +
+                    "LEFT JOIN organisasi_professional o ON p.organisasi_professional_id = o.organisasi_professional_id " +
+                    "JOIN kategori_club ka ON d.kategori_id = ka.kategori_id " +
+                    "WHERE d.club_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, clubId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                namaClub.setText(rs.getString("nama_club"));
+                namaPendiriClub.setText(rs.getString("nama_pendiri_club"));
+                idPendiriClub.setText(rs.getString("pendiri_club_id"));
+                organisasiProfessional.setText(rs.getString("organisasi_professional"));
+                idOrganisasiProfessional.setText(rs.getString("organisasi_professional_id"));
+                kategoriClub.setText(rs.getString("nama_kategori"));
+                tahunBerdiriClub.setText(String.valueOf(rs.getInt("tahun_berdiri_club")));
+                deskripsiClub.setText(rs.getString("deskripsi_club"));
+                clubIdCurrent = clubId;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clearAllFields() {
+        namaClub.clear();
+        namaPendiriClub.clear();
+        idPendiriClub.clear();
+        organisasiProfessional.clear();
+        idOrganisasiProfessional.clear();
+        kategoriClub.clear();
+        tahunBerdiriClub.clear();
+        deskripsiClub.clear();
+        clubIdCurrent = 0;
     }
 
     @FXML
     public void doneButton() {
-        String tempNamaClub = namaClub.getText();
-        String tempIdPendiriClub = idPendiriClub.getText();
-        String tempNamaPendiriClub = namaPendiriClub.getText();
-
-        if (tempNamaClub.isEmpty() || tempIdPendiriClub.isEmpty() || tempNamaPendiriClub.isEmpty()) {
+        if (namaClub.getText().isEmpty() || namaPendiriClub.getText().isEmpty() || idPendiriClub.getText().isEmpty()) {
             return;
         }
 
-        boolean dataBaru = false;
-        try (Connection conn = DBConnector.connect()) {
-            String query = "SELECT * FROM data_club WHERE club_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, clubIdCurrent);
-            ResultSet rs = stmt.executeQuery();
-            if (!rs.next()) {
-                dataBaru = true;
-            }
-        } catch (SQLException e) {}
-
-        if (dataBaru) {
-            int maxId = 0;
-            try (Connection conn = DBConnector.connect()) {
-                String query = "SELECT MAX(club_id) AS max_id FROM data_club";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) maxId = rs.getInt("max_id");
-            } catch (SQLException e) {}
-            maxId++;
-
-            int maxKategori = 0;
-            try (Connection conn = DBConnector.connect()) {
-                String query = "SELECT MAX(kategori_id) AS max_kat FROM kategori_club";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) maxKategori = rs.getInt("max_kat");
-            } catch (SQLException e) {}
-            maxKategori++;
-
-            try (Connection conn = DBConnector.connect()) {
-                String query = "INSERT INTO data_club VALUES (?, ?, ?, ?, ?, ?)";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setInt(1, maxId);
-                stmt.setString(2, tempNamaClub);
-                stmt.setString(3, deskripsiClub.getText());
-                stmt.setInt(4, Integer.parseInt(tahunBerdiriClub.getText()));
-                stmt.setInt(5, maxKategori);
-                stmt.setString(6, tempIdPendiriClub);
-                stmt.executeUpdate();
-            } catch (SQLException e) {}
-
-            try (Connection conn = DBConnector.connect()) {
-                String query = "SELECT * FROM pendiri_club WHERE nama_pendiri_club = ?";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, tempNamaPendiriClub);
-                ResultSet rs = stmt.executeQuery();
-                if (!rs.next()) {
-                    try (Connection connn = DBConnector.connect()) {
-                        String queryy = "INSERT INTO pendiri_club VALUES (?, ?, ?)";
-                        PreparedStatement stmtt = connn.prepareStatement(queryy);
-                        stmtt.setString(1, tempIdPendiriClub);
-                        stmtt.setString(2, tempNamaPendiriClub);
-                        stmtt.setString(3, idOrganisasiProfessional.getText());
-                        stmtt.executeUpdate();
-                    } catch (SQLException e) {}
-                }
-            } catch (SQLException e) {}
-
+        if (pilihanKe.getValue() > clubIds.size()) {
+            createNewClub();
         } else {
-            int kategoriId = 0;
-            try (Connection conn = DBConnector.connect()) {
-                String query = "SELECT * FROM kategori_club WHERE nama_kategori = ?";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, kategoriClub.getText());
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    kategoriId = rs.getInt("kategori_id");
-                }
-            } catch (SQLException e) {}
-
-            try (Connection conn = DBConnector.connect()) {
-                String query = "UPDATE data_club SET nama_club = ?, deskripsi_club = ?, tahun_berdiri_club = ?, kategori_id = ?, pendiri_club_id = ? WHERE club_id = ?";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, tempNamaClub);
-                stmt.setString(2, deskripsiClub.getText());
-                stmt.setInt(3, Integer.parseInt(tahunBerdiriClub.getText()));
-                stmt.setInt(4, kategoriId);
-                stmt.setString(5, tempIdPendiriClub);
-                stmt.setInt(6, clubIdCurrent);
-                stmt.executeUpdate();
-            } catch (SQLException e) {}
+            updateExistingClub();
         }
     }
 
-    // Navigasi halaman
+    private void createNewClub() {
+        try (Connection conn = DBConnector.connect()) {
+            Set<Integer> usedIds = new HashSet<>();
+            PreparedStatement usedStmt = conn.prepareStatement("SELECT club_id FROM data_club");
+            ResultSet usedRs = usedStmt.executeQuery();
+            while (usedRs.next()) {
+                usedIds.add(usedRs.getInt("club_id"));
+            }
+            int newClubId = 1;
+            while (usedIds.contains(newClubId)) {
+                newClubId++;
+            }
 
+            updatePendiriIfNeeded(conn, idPendiriClub.getText(), namaPendiriClub.getText(), idOrganisasiProfessional.getText());
+
+            int kategoriId = getKategoriId(conn, kategoriClub.getText());
+            if (kategoriId == -1) {
+                PreparedStatement getMaxKat = conn.prepareStatement("SELECT MAX(kategori_id) AS max_kat FROM kategori_club");
+                ResultSet rs2 = getMaxKat.executeQuery();
+                if (rs2.next()) kategoriId = rs2.getInt("max_kat") + 1;
+
+                PreparedStatement insertKat = conn.prepareStatement("INSERT INTO kategori_club VALUES (?, ?)");
+                insertKat.setInt(1, kategoriId);
+                insertKat.setString(2, kategoriClub.getText());
+                insertKat.executeUpdate();
+            }
+
+            PreparedStatement insertClub = conn.prepareStatement("INSERT INTO data_club VALUES (?, ?, ?, ?, ?, ?)");
+            insertClub.setInt(1, newClubId);
+            insertClub.setString(2, namaClub.getText());
+            insertClub.setString(3, deskripsiClub.getText());
+            insertClub.setInt(4, Integer.parseInt(tahunBerdiriClub.getText()));
+            insertClub.setInt(5, kategoriId);
+            insertClub.setString(6, idPendiriClub.getText());
+            insertClub.executeUpdate();
+
+            Set<Integer> usedKeanggotaanIds = new HashSet<>();
+            PreparedStatement getUsedIds = conn.prepareStatement("SELECT keanggotaan_id FROM keanggotaan");
+            ResultSet rsUsed = getUsedIds.executeQuery();
+            while (rsUsed.next()) {
+                usedKeanggotaanIds.add(rsUsed.getInt("keanggotaan_id"));
+            }
+            int newKeanggotaanId = 1;
+            while (usedKeanggotaanIds.contains(newKeanggotaanId)) {
+                newKeanggotaanId++;
+            }
+
+
+            PreparedStatement insertKeanggotaan = conn.prepareStatement(
+                    "INSERT INTO keanggotaan (keanggotaan_id, peran, status, tanggal_bergabung, nrp, club_id) VALUES (?, 'Admin', 'Active', ?, ?, ?)"
+            );
+            insertKeanggotaan.setInt(1, newKeanggotaanId); //
+            insertKeanggotaan.setDate(2, Date.valueOf(LocalDate.now())); // tanggal_bergabung
+            insertKeanggotaan.setString(3, SessionManager.getCurrentUser().getNrp()); // nrp
+            insertKeanggotaan.setInt(4, newClubId);
+            insertKeanggotaan.executeUpdate();
+
+            clubIds.add(newClubId);
+            clubIdCurrent = newClubId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pilihanKe(int index) {
+        pilihanKe.setValue(index);
+        if (pilihanKe.getOnAction() != null) {
+            pilihanKe.getOnAction().handle(null);
+        }
+    }
+
+    private void updateExistingClub() {
+        try (Connection conn = DBConnector.connect()) {
+            int kategoriId = getKategoriId(conn, kategoriClub.getText());
+            if (kategoriId == -1) return;
+
+            updatePendiriIfNeeded(conn, idPendiriClub.getText(), namaPendiriClub.getText(), idOrganisasiProfessional.getText());
+
+            PreparedStatement update = conn.prepareStatement(
+                    "UPDATE data_club SET nama_club = ?, deskripsi_club = ?, tahun_berdiri_club = ?, kategori_id = ?, pendiri_club_id = ? WHERE club_id = ?"
+            );
+            update.setString(1, namaClub.getText());
+            update.setString(2, deskripsiClub.getText());
+            update.setInt(3, Integer.parseInt(tahunBerdiriClub.getText()));
+            update.setInt(4, kategoriId);
+            update.setString(5, idPendiriClub.getText());
+            update.setInt(6, clubIdCurrent);
+            update.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getKategoriId(Connection conn, String kategoriNama) throws SQLException {
+        String query = "SELECT kategori_id FROM kategori_club WHERE nama_kategori = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, kategoriNama);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next() ? rs.getInt("kategori_id") : -1;
+    }
+
+    private void updatePendiriIfNeeded(Connection conn, String id, String nama, String orgId) throws SQLException {
+        String check = "SELECT * FROM pendiri_club WHERE pendiri_club_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(check);
+        stmt.setString(1, id);
+        ResultSet rs = stmt.executeQuery();
+        if (!rs.next()) {
+            String insert = "INSERT INTO pendiri_club VALUES (?, ?, ?)";
+            PreparedStatement insertStmt = conn.prepareStatement(insert);
+            insertStmt.setString(1, id);
+            insertStmt.setString(2, nama);
+            insertStmt.setString(3, orgId);
+            insertStmt.executeUpdate();
+        }
+    }
+
+    // Navigasi
     @FXML
     public void profilePageAdmin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Profile-Page-Admin.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Profile Page Admin");
-        stage.show();
-        stage.centerOnScreen();
+        navigate(event, "/Admin/Profile-Page-Admin.fxml", "Profile Page Admin");
     }
 
     public void personalClubPageAdmin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Personal-Club-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Personal Club Page");
-        stage.show();
-        stage.centerOnScreen();
+        navigate(event, "/Admin/Personal-Club-Page.fxml", "Personal Club Page");
     }
 
     public void logOutPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Log_in.fxml"));
         SessionManager.clearSession();
-        Parent root = loader.load();
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Login page");
-        stage.show();
-        stage.centerOnScreen();
+        navigate(event, "/General/Log_in.fxml", "Login Page");
     }
 
     @FXML
     public void onHomePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Home-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Home Page");
-        stage.show();
-        stage.centerOnScreen();
+        navigate(event, "/General/Home-Page.fxml", "Home Page");
     }
 
     @FXML
     public void onHomePageAdmin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Home-Page-Admin.fxml"));
-        Parent root = loader.load();
+        navigate(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin");
+    }
+
+    private void navigate(ActionEvent event, String path, String title) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(path));
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
-        stage.setTitle("Home Page Admin");
+        stage.setTitle(title);
         stage.show();
         stage.centerOnScreen();
     }

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1107.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0, #e0linear-gradient(to bottom, #B9FBC0, #34D399, #059669);0e0);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clubApp.Admin.PersonalClubPage">
+<AnchorPane fx:id="rootPane" prefHeight="734.0" prefWidth="1107.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clubApp.Admin.PersonalClubPage">
     <children>
         <Pane prefHeight="734.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);;">
             <children>
@@ -96,46 +96,6 @@
                 </Text>
             </children>
         </Pane>
-        <Pane layoutX="270.0" layoutY="264.0" prefHeight="185.0" prefWidth="405.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;">
-            <children>
-                <Button layoutX="16.0" layoutY="132.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="375.0" style="-fx-background-color: linear-gradient(to bottom, #B9FBC0, #34D399, #059669);;" text="✎ Update Data Club" textAlignment="CENTER">
-                    <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                    </font>
-                </Button>
-                <Text fill="WHITE" layoutX="235.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BBC Club " textAlignment="CENTER" wrappingWidth="155.99999999999994">
-                    <font>
-                        <Font name="Berlin Sans FB" size="26.0" />
-                    </font>
-                    <stroke>
-                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
-                            <stops>
-                                <Stop>
-                                    <color>
-                                        <Color />
-                                    </color>
-                                </Stop>
-                                <Stop offset="1.0">
-                                    <color>
-                                        <Color red="1.0" green="1.0" blue="1.0" />
-                                    </color>
-                                </Stop>
-                            </stops>
-                        </RadialGradient>
-                    </stroke>
-                </Text>
-                <Button layoutX="248.0" layoutY="14.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: linear-gradient(to bottom, #FF6B6B, #FF0000, #990000);;" text=" ⊠ Delete Club" textAlignment="CENTER">
-                    <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                    </font>
-                </Button>
-                <Pane layoutX="16.0" layoutY="15.0" prefHeight="103.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 20;" />
-                <Button layoutX="248.0" layoutY="93.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: white;" text="👁 View Info " textAlignment="CENTER">
-                    <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                    </font>
-                </Button>
-            </children></Pane>
         <Text fill="#07b9ff" layoutX="270.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Personal Club &gt;" wrappingWidth="382.6666768391927">
             <font>
                 <Font name="Berlin Sans FB" size="26.0" />
@@ -157,46 +117,5 @@
                 </RadialGradient>
             </stroke>
         </Text>
-        <Pane layoutX="687.0" layoutY="264.0" prefHeight="185.0" prefWidth="405.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);; -fx-background-radius: 20;">
-            <children>
-                <Button layoutX="16.0" layoutY="132.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="375.0" style="-fx-background-color: linear-gradient(to bottom, #B9FBC0, #34D399, #059669);;" text="✎ Update Data Club" textAlignment="CENTER">
-                    <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                    </font>
-                </Button>
-                <Text fill="WHITE" layoutX="235.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BBL Club " textAlignment="CENTER" wrappingWidth="155.99999999999994">
-                    <font>
-                        <Font name="Berlin Sans FB" size="26.0" />
-                    </font>
-                    <stroke>
-                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
-                            <stops>
-                                <Stop>
-                                    <color>
-                                        <Color />
-                                    </color>
-                                </Stop>
-                                <Stop offset="1.0">
-                                    <color>
-                                        <Color red="1.0" green="1.0" blue="1.0" />
-                                    </color>
-                                </Stop>
-                            </stops>
-                        </RadialGradient>
-                    </stroke>
-                </Text>
-                <Button layoutX="248.0" layoutY="14.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: linear-gradient(to bottom, #FF6B6B, #FF0000, #990000);;" text=" ⊠ Delete Club" textAlignment="CENTER">
-                    <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                    </font>
-                </Button>
-                <Pane layoutX="16.0" layoutY="15.0" prefHeight="103.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 20;" />
-                <Button layoutX="248.0" layoutY="93.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: white;" text="👁 View Info " textAlignment="CENTER">
-                    <font>
-                        <Font name="Berlin Sans FB" size="15.0" />
-                    </font>
-                </Button>
-            </children>
-        </Pane>
     </children>
 </AnchorPane>
