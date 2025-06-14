@@ -1,6 +1,5 @@
 package clubApp.General;
 
-import clubApp.BaseController;
 import currentUser.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class HomePage extends BaseController {
+public class HomePage {
 
     @FXML
     Button profilePageHomePage, allClubHomePage, myClubHomePage, eventHomePage, logOutHomePage;

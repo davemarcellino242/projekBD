@@ -206,9 +206,8 @@ public class AddUpdateNewClubPage {
         try (Connection conn = DBConnector.connect()) {
             int kategoriId = getKategoriId(conn, kategoriClub.getText());
             if (kategoriId == -1) return;
-
+            
             updatePendiriIfNeeded(conn, idPendiriClub.getText(), namaPendiriClub.getText(), idOrganisasiProfessional.getText());
-
             PreparedStatement update = conn.prepareStatement(
                     "UPDATE data_club SET nama_club = ?, deskripsi_club = ?, tahun_berdiri_club = ?, kategori_id = ?, pendiri_club_id = ? WHERE club_id = ?"
             );
@@ -224,27 +223,53 @@ public class AddUpdateNewClubPage {
         }
     }
 
+    private void updatePendiriIfNeeded(Connection conn, String idPendiri, String namaPendiri, String orgProfId) throws SQLException {
+        // Cek apakah organisasi_professional_id sudah ada
+        String checkOrgSQL = "SELECT 1 FROM organisasi_professional WHERE organisasi_professional_id = ?";
+        try (PreparedStatement checkOrg = conn.prepareStatement(checkOrgSQL)) {
+            checkOrg.setString(1, orgProfId);
+            ResultSet rs = checkOrg.executeQuery();
+
+            if (!rs.next()) {
+                // Jika belum ada, insert organisasi baru
+                String insertOrgSQL = "INSERT INTO organisasi_professional (organisasi_professional_id, organisasi_professional) VALUES (?, ?)";
+                try (PreparedStatement insertOrg = conn.prepareStatement(insertOrgSQL)) {
+                    insertOrg.setString(1, orgProfId);
+                    insertOrg.setString(2, organisasiProfessional.getText()); // Atau ganti dengan parameter kalau mau
+                    insertOrg.executeUpdate();
+                    System.out.println("Organisasi baru ditambahkan: " + orgProfId);
+                }
+            }
+        }
+
+        // Cek apakah pendiri_club sudah ada
+        String checkPendiriSQL = "SELECT 1 FROM pendiri_club WHERE pendiri_club_id = ?";
+        try (PreparedStatement checkPendiri = conn.prepareStatement(checkPendiriSQL)) {
+            checkPendiri.setString(1, idPendiri);
+            ResultSet rs2 = checkPendiri.executeQuery();
+
+            if (!rs2.next()) {
+
+                String insertPendiriSQL = "INSERT INTO pendiri_club (pendiri_club_id, nama_pendiri_club, organisasi_professional_id) VALUES (?, ?, ?)";
+                try (PreparedStatement insertPendiri = conn.prepareStatement(insertPendiriSQL)) {
+                    insertPendiri.setString(1, idPendiri);
+                    insertPendiri.setString(2, namaPendiri);
+                    insertPendiri.setString(3, orgProfId);
+                    insertPendiri.executeUpdate();
+                    System.out.println("Pendiri baru ditambahkan: " + idPendiri);
+                }
+            }
+        }
+    }
+
+
+
     private int getKategoriId(Connection conn, String kategoriNama) throws SQLException {
         String query = "SELECT kategori_id FROM kategori_club WHERE nama_kategori = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, kategoriNama);
         ResultSet rs = stmt.executeQuery();
         return rs.next() ? rs.getInt("kategori_id") : -1;
-    }
-
-    private void updatePendiriIfNeeded(Connection conn, String id, String nama, String orgId) throws SQLException {
-        String check = "SELECT * FROM pendiri_club WHERE pendiri_club_id = ?";
-        PreparedStatement stmt = conn.prepareStatement(check);
-        stmt.setString(1, id);
-        ResultSet rs = stmt.executeQuery();
-        if (!rs.next()) {
-            String insert = "INSERT INTO pendiri_club VALUES (?, ?, ?)";
-            PreparedStatement insertStmt = conn.prepareStatement(insert);
-            insertStmt.setString(1, id);
-            insertStmt.setString(2, nama);
-            insertStmt.setString(3, orgId);
-            insertStmt.executeUpdate();
-        }
     }
 
     // Navigasi
@@ -277,6 +302,16 @@ public class AddUpdateNewClubPage {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle(title);
+        stage.show();
+        stage.centerOnScreen();
+    }
+
+    public void eventDatePage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Event-Date-Page.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Event Date Page");
         stage.show();
         stage.centerOnScreen();
     }

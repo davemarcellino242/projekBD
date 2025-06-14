@@ -1,4 +1,4 @@
-package clubApp;
+package clubApp.General;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

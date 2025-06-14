@@ -65,7 +65,7 @@
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
                 </Button>
-                <Button layoutX="13.0" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text="〄 Event Date" textAlignment="CENTER">
+                <Button layoutX="13.0" layoutY="177.0" mnemonicParsing="false" onAction="#eventDatePage" prefHeight="25.0" prefWidth="222.0" text="〄 Event Date" textAlignment="CENTER">
                     <font>
                         <Font name="Berlin Sans FB" size="15.0" />
                     </font>
@@ -81,7 +81,7 @@
             <children>
                 <Pane layoutX="24.0" layoutY="14.0" prefHeight="36.0" prefWidth="777.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextField fx:id="namaClub1Field" layoutX="14.0" layoutY="6.0" prefHeight="25.0" prefWidth="746.0" />
+                        <TextField fx:id="namaClub" layoutX="14.0" layoutY="6.0" prefHeight="25.0" prefWidth="746.0" />
                     </children>
                 </Pane>
                 <Text fill="WHITE" layoutX="24.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Pendiri Club :" wrappingWidth="205.91213989257812">
@@ -91,7 +91,7 @@
                 </Text>
                 <Pane layoutX="164.0" layoutY="59.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextField layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
+                        <TextField fx:id="namaPendiriClub" layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
                             <font>
                                 <Font name="Berlin Sans FB" size="12.0" />
                             </font>
@@ -120,12 +120,12 @@
                 </Text>
                 <Pane layoutX="427.0" layoutY="59.0" prefHeight="257.0" prefWidth="372.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextArea layoutX="14.0" layoutY="9.0" prefHeight="238.0" prefWidth="347.0" />
+                        <TextArea fx:id="deskripsiClub" layoutX="14.0" layoutY="9.0" prefHeight="238.0" prefWidth="347.0" />
                     </children>
                 </Pane>
                 <Pane layoutX="164.0" layoutY="150.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextField layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
+                        <TextField fx:id="organisasiProfessional" layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
                             <font>
                                 <Font name="Berlin Sans FB" size="12.0" />
                             </font>
@@ -134,12 +134,12 @@
                 </Pane>
                 <Pane layoutX="165.0" layoutY="242.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextField layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0" />
+                        <TextField fx:id="kategoriClub" layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0" />
                     </children>
                 </Pane>
                 <Pane layoutX="165.0" layoutY="285.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextField layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0" />
+                        <TextField fx:id="tahunBerdiriClub" layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0" />
                     </children>
                 </Pane>
                 <Text fill="WHITE" layoutX="24.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Pendiri Club :" wrappingWidth="205.91213989257812">
@@ -154,7 +154,7 @@
                 </Text>
                 <Pane layoutX="164.0" layoutY="196.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextField layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
+                        <TextField fx:id="idOrganisasiProfessional" layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
                             <font>
                                 <Font name="Berlin Sans FB" size="12.0" />
                             </font>
@@ -163,7 +163,7 @@
                 </Pane>
                 <Pane layoutX="164.0" layoutY="105.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>
-                        <TextField layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
+                        <TextField fx:id="idPendiriClub" layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0">
                             <font>
                                 <Font name="Berlin Sans FB" size="12.0" />
                             </font>
@@ -177,14 +177,13 @@
                 <Image url="@../Image/PCU.jpg" />
             </image>
         </ImageView>
-        <TableView layoutX="262.0" layoutY="343.0" prefHeight="384.0" prefWidth="830.0">
+        <TableView fx:id="anggota" layoutX="262.0" layoutY="343.0" prefHeight="384.0" prefWidth="830.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="NRP" />
-                <TableColumn prefWidth="205.33334350585938" text="NAME" />
-                <TableColumn prefWidth="233.33331298828125" text="EMAIL" />
-                <TableColumn prefWidth="103.33343505859375" text="PROGRAM" />
-                <TableColumn prefWidth="112.666748046875" text="AKTIF" />
-                <TableColumn prefWidth="99.33331298828125" text="STATUS" />
+                <TableColumn fx:id="nrpColumn" prefWidth="160.00003051757812" text="NRP" />
+                <TableColumn fx:id="nameColumn" prefWidth="207.19998168945312" text="NAME" />
+                <TableColumn fx:id="programColumn" prefWidth="188.0" text="PROGRAM" />
+                <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="122.4000244140625" text="STATUS" />
+                <TableColumn fx:id="peranColumn" prefWidth="151.2000732421875" text="PERAN" />
             </columns>
         </TableView>
     </children>

@@ -66,4 +66,8 @@ public class keanggotaan {
     public void setKeanggotaanId(int keanggotaanId) {
         this.keanggotaanId = keanggotaanId;
     }
+
+    public mahasiswa getNrpObject() {
+        return this.nrp;
+    }
 }

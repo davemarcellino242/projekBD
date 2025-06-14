@@ -16,10 +16,10 @@ public class JadwalDAO {
     }
 
     public void insertJadwal(jadwal jadwal) throws SQLException {
-        String query = "INSERT INTO jadwal (tanggal, kegiatan_id) VALUES (?, ?)";
+        String query = "INSERT INTO jadwal (kegiatan_id, kegiatan_id) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setDate(1, Date.valueOf(jadwal.getJadwalTanggal()));
-            stmt.setInt(2, jadwal.getKegiatanId());
+            stmt.setInt(1, jadwal.getKegiatanId());
+            stmt.setDate(2,  Date.valueOf(jadwal.getJadwalTanggal()));
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();

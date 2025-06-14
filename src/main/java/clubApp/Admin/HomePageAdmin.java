@@ -105,4 +105,14 @@ public class HomePageAdmin {
         stage.centerOnScreen();
     }
 
+    public void eventDatePage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Event-Date-Page.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Event Date Page");
+        stage.show();
+        stage.centerOnScreen();
+    }
+
 }

@@ -39,6 +39,27 @@ public class PersonalClubPage {
         loadUserClubs();
     }
 
+    @FXML
+    private void viewClubInfo(int clubId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/View-Info-Personal-Club.fxml"));
+            Parent root = loader.load();
+
+            ViewInfoPersonalClub controller = loader.getController();
+            controller.setClubId(clubId);
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("View Club Info");
+            stage.show();
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void loadUserClubs() {
         try (Connection conn = DBConnector.connect()) {
             String query = "SELECT d.club_id, d.nama_club FROM data_club d " +
@@ -82,6 +103,7 @@ public class PersonalClubPage {
         viewInfo.setLayoutY(93);
         viewInfo.setPrefSize(143, 28);
         viewInfo.setStyle("-fx-background-color: white;");
+        viewInfo.setOnAction(e -> viewClubInfo(clubId));
 
         Button deleteButton = new Button("⊠ Delete Club");
         deleteButton.setLayoutX(248);
@@ -208,6 +230,16 @@ public class PersonalClubPage {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Home Page Admin");
+        stage.show();
+        stage.centerOnScreen();
+    }
+
+    public void eventDatePage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Event-Date-Page.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Event Date Page");
         stage.show();
         stage.centerOnScreen();
     }
