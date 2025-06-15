@@ -24,7 +24,6 @@ public class ProfilePage {
 
     @FXML
     private TextField nrpField, namaField, emailField, tanggalLahirField, fakultasField, prodiField, programField;
-
     @FXML
     private Connection conn;
     @FXML
@@ -86,6 +85,16 @@ public class ProfilePage {
         stage.centerOnScreen();
     }
 
+    @FXML
+    public void sertiPage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Sertifikat-Page.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Sertifikat Page");
+        stage.show();
+        stage.centerOnScreen();
+    }
     @FXML
     public void myClubPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/My-Club-Page.fxml"));

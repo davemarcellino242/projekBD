@@ -67,22 +67,43 @@ public class EventDatePage {
 
     private void loadKegiatanForClub(int clubId, String clubName) {
         paneContainer.getChildren().clear();
-        try (Connection conn = DBConnector.connect()) {
-            // Hitung jumlah kegiatan untuk club ini
-            String countSql = "SELECT COUNT(*) FROM kegiatan_club WHERE club_id = ?";
-            PreparedStatement countStmt = conn.prepareStatement(countSql);
-            countStmt.setInt(1, clubId);
-            ResultSet countRs = countStmt.executeQuery();
 
-            int kegiatanCount = 0;
-            if (countRs.next()) {
-                kegiatanCount = countRs.getInt(1);
+        int shownKegiatanCount = 0;
+
+        try (Connection conn = DBConnector.connect()) {
+
+            String sql = """
+            SELECT kc.kegiatan_id, kc.nama_kegiatan, l.nama_lokasi, jk.nama_jenis_kegiatan,
+                   j.start_date, j.end_date
+            FROM kegiatan_club kc
+            JOIN lokasi l ON kc.lokasi_id = l.lokasi_id
+            JOIN jenis_kegiatan jk ON kc.jenis_kegiatan_id = jk.jenis_kegiatan_id
+            JOIN jadwal j ON kc.kegiatan_id = j.kegiatan_id
+            WHERE kc.club_id = ? AND kc.active = 'Yes'
+        """;
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, clubId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int kegiatanId = rs.getInt("kegiatan_id");
+                String nama = rs.getString("nama_kegiatan");
+                String lokasi = rs.getString("nama_lokasi");
+                String jenis = rs.getString("nama_jenis_kegiatan");
+                String start = rs.getDate("start_date").toString();
+                String end = rs.getDate("end_date").toString();
+
+                Pane pane = createEventPane(kegiatanId, nama, jenis, start, end, lokasi, clubName);
+                paneContainer.getChildren().add(pane);
+                VBox.setMargin(pane, new Insets(0, 0, 20, 0));
+                shownKegiatanCount++;
             }
 
-            // Atur tombol Add Event berdasarkan jumlah kegiatan
-            if (kegiatanCount >= 2) {
+            // Atur tombol Add Event berdasarkan jumlah kegiatan aktif yang ditampilkan
+            if (shownKegiatanCount >= 2) {
                 addEventButton.setDisable(true);
-                addEventButton.setOnAction(e -> showAlert("Club ini sudah memiliki 2 kegiatan. Tidak dapat menambah lagi."));
+                addEventButton.setOnAction(e -> showAlert("Club ini sudah memiliki 2 kegiatan aktif. Tidak dapat menambah lagi."));
             } else {
                 addEventButton.setDisable(false);
                 addEventButton.setOnAction(e -> {
@@ -99,25 +120,25 @@ public class EventDatePage {
                 });
             }
 
-            // Load data kegiatan dan tampilkan ke pane
-            String sql = "SELECT kc.kegiatan_id, kc.nama_kegiatan, l.nama_lokasi, jk.nama_jenis_kegiatan, j.start_date, j.end_date FROM kegiatan_club kc JOIN lokasi l ON kc.lokasi_id = l.lokasi_id JOIN jenis_kegiatan jk ON kc.jenis_kegiatan_id = jk.jenis_kegiatan_id JOIN jadwal j ON kc.kegiatan_id = j.kegiatan_id WHERE kc.club_id = ?";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void deactivateExpiredEvents() {
+        try (Connection conn = DBConnector.connect()) {
+            String sql = """
+            UPDATE kegiatan_club 
+            SET active = 'No'
+            WHERE kegiatan_id IN (
+                SELECT kegiatan_id 
+                FROM jadwal 
+                WHERE end_date < CURRENT_DATE
+            )
+        """;
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, clubId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                int kegiatanId = rs.getInt("kegiatan_id");
-                String nama = rs.getString("nama_kegiatan");
-                String lokasi = rs.getString("nama_lokasi");
-                String jenis = rs.getString("nama_jenis_kegiatan");
-                String start = rs.getDate("start_date").toString();
-                String end = rs.getDate("end_date").toString();
-
-                Pane pane = createEventPane(kegiatanId, nama, jenis, start, end, lokasi, clubName);
-                paneContainer.getChildren().add(pane);
-                VBox.setMargin(pane, new Insets(0, 0, 20, 0));
-            }
-
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
