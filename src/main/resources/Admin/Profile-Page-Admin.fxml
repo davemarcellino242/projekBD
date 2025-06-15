@@ -347,10 +347,5 @@
                 <Font name="Berlin Sans FB" size="15.0" />
             </font>
         </Button>
-        <Button layoutX="695.0" layoutY="685.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="397.0" style="-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);" text="My Sertificate" textFill="WHITE">
-            <font>
-                <Font name="Berlin Sans FB" size="15.0" />
-            </font>
-        </Button>
     </children>
 </AnchorPane>
