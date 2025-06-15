@@ -28,10 +28,11 @@ public class AddUpdateNewClubPage {
     @FXML private TextField idPendiriClub;
     @FXML private TextField organisasiProfessional;
     @FXML private TextField idOrganisasiProfessional;
-    @FXML private TextField kategoriClub;
     @FXML private TextField tahunBerdiriClub;
     @FXML private TextArea deskripsiClub;
     @FXML private ComboBox<Integer> pilihanKe;
+    @FXML private ComboBox<String> kategoriClub;
+
 
     private final List<Integer> clubIds = new ArrayList<>();
     private int clubIdCurrent = 0;
@@ -39,6 +40,7 @@ public class AddUpdateNewClubPage {
     @FXML
     public void initialize() {
         loadUserClubs();
+        loadKategoriList();
         pilihanKe.getItems().addAll(1, 2);
 
         pilihanKe.setOnAction(e -> {
@@ -55,6 +57,21 @@ public class AddUpdateNewClubPage {
             loadClubById(clubIds.get(0));
         } else {
             clearAllFields();
+        }
+    }
+
+    private void loadKategoriList() {
+        try (Connection conn = DBConnector.connect()) {
+            String query = "SELECT nama_kategori FROM kategori_club ORDER BY nama_kategori";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            kategoriClub.getItems().clear();
+            while (rs.next()) {
+                kategoriClub.getItems().add(rs.getString("nama_kategori"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -95,7 +112,7 @@ public class AddUpdateNewClubPage {
                 idPendiriClub.setText(rs.getString("pendiri_club_id"));
                 organisasiProfessional.setText(rs.getString("organisasi_professional"));
                 idOrganisasiProfessional.setText(rs.getString("organisasi_professional_id"));
-                kategoriClub.setText(rs.getString("nama_kategori"));
+                kategoriClub.setValue(rs.getString("nama_kategori"));
                 tahunBerdiriClub.setText(String.valueOf(rs.getInt("tahun_berdiri_club")));
                 deskripsiClub.setText(rs.getString("deskripsi_club"));
                 clubIdCurrent = clubId;
@@ -112,7 +129,6 @@ public class AddUpdateNewClubPage {
         idPendiriClub.clear();
         organisasiProfessional.clear();
         idOrganisasiProfessional.clear();
-        kategoriClub.clear();
         tahunBerdiriClub.clear();
         deskripsiClub.clear();
         clubIdCurrent = 0;
@@ -146,7 +162,7 @@ public class AddUpdateNewClubPage {
 
             updatePendiriIfNeeded(conn, idPendiriClub.getText(), namaPendiriClub.getText(), idOrganisasiProfessional.getText());
 
-            int kategoriId = getKategoriId(conn, kategoriClub.getText());
+            int kategoriId = getKategoriId(conn, kategoriClub.getValue());
             if (kategoriId == -1) {
                 PreparedStatement getMaxKat = conn.prepareStatement("SELECT MAX(kategori_id) AS max_kat FROM kategori_club");
                 ResultSet rs2 = getMaxKat.executeQuery();
@@ -154,7 +170,7 @@ public class AddUpdateNewClubPage {
 
                 PreparedStatement insertKat = conn.prepareStatement("INSERT INTO kategori_club VALUES (?, ?)");
                 insertKat.setInt(1, kategoriId);
-                insertKat.setString(2, kategoriClub.getText());
+                insertKat.setString(2, kategoriClub.getValue());
                 insertKat.executeUpdate();
             }
 
@@ -204,7 +220,7 @@ public class AddUpdateNewClubPage {
 
     private void updateExistingClub() {
         try (Connection conn = DBConnector.connect()) {
-            int kategoriId = getKategoriId(conn, kategoriClub.getText());
+            int kategoriId = getKategoriId(conn, kategoriClub.getValue());
             if (kategoriId == -1) return;
             
             updatePendiriIfNeeded(conn, idPendiriClub.getText(), namaPendiriClub.getText(), idOrganisasiProfessional.getText());

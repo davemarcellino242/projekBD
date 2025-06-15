@@ -137,9 +137,9 @@
                     </children>
                 </Pane>
                 <Pane layoutX="165.0" layoutY="242.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
-                    <children>
-                        <TextField fx:id="kategoriClub" layoutX="12.0" layoutY="6.0" prefHeight="0.0" prefWidth="125.0" />
-                    </children>
+               <children>
+                  <ComboBox fx:id="kategoriClub" layoutX="13.0" layoutY="6.0" prefHeight="25.0" prefWidth="125.0" />
+               </children>
                 </Pane>
                 <Pane layoutX="165.0" layoutY="285.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                     <children>

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -22,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,19 +40,39 @@ public class AllClubPage {
 
     @FXML
     private Pane allClubContainer;
+    @FXML
+    private ComboBox<Integer> pageSelector;
+
+    private List<club> allClubs = new ArrayList<>();
+    private static final int CLUBS_PER_PAGE = 4;
+    private int currentPage = 1;
     private List<Integer> userJoinedClubsIds;
+
     @FXML
     public void initialize() {
         userJoinedClubsIds = new ArrayList<>();
         String nrp = SessionManager.getCurrentUser().getNrp();
 
-        try{
+        try {
             userJoinedClubsIds = KeanggotaanDAO.getClubIdsByNrp(nrp);
+            ClubDAO clubDAO = new ClubDAO();
+            allClubs = clubDAO.getAllClubs();
+
+            int totalPages = (int) Math.ceil((double) allClubs.size() / CLUBS_PER_PAGE);
+            for (int i = 1; i <= totalPages; i++) {
+                pageSelector.getItems().add(i);
+            }
+            pageSelector.setValue(1); // default halaman 1
+            pageSelector.setOnAction(e -> {
+                currentPage = pageSelector.getValue();
+                loadAndDisplayClubs(nrp);
+            });
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        loadAndDisplayClubs(nrp);
 
+        loadAndDisplayClubs(nrp);
     }
 
     private Pane createClubCard(club club, String nrp) {
@@ -141,17 +163,28 @@ public class AllClubPage {
 
         joinButton.setOnAction(event -> {
             try {
+                if (userJoinedClubsIds.size() >= 4) {
+                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+                    alert.setTitle("Batas Klub Tercapai");
+                    alert.setHeaderText("Maksimal 4 Klub");
+                    alert.setContentText("Anda sudah bergabung dengan 4 klub. Tidak bisa bergabung lagi.");
+                    alert.showAndWait();
+                    return;
+                }
+
                 KeanggotaanDAO keanggotaanDAO = new KeanggotaanDAO();
-
-                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO(); // Perlu cara yang lebih baik untuk mendapatkan koneksi
+                MahasiswaDAO mahasiswaDAO = new MahasiswaDAO();
                 mahasiswa mhs = mahasiswaDAO.getMahasiswaByNrp(nrp);
-
                 ClubDAO clubDAO = new ClubDAO();
                 club targetClub = clubDAO.getClubById(club.getClubId());
 
                 if (mhs != null && targetClub != null) {
-                    // Mendapatkan ID keanggotaan berikutnya
-                    int newKeanggotaanId = keanggotaanDAO.getNextKeanggotaanId();
+                    int newKeanggotaanId = 1;
+                    List<Integer> existingIds = keanggotaanDAO.getAllKeanggotaanIds();
+
+                    while (existingIds.contains(newKeanggotaanId)) {
+                        newKeanggotaanId++;
+                    }
                     String defaultPeran = "Member";
                     String defaultStatus = "Active";
                     LocalDate tanggalBergabung = LocalDate.now();
@@ -167,9 +200,11 @@ public class AllClubPage {
 
                     keanggotaanDAO.insertKeanggotaan(newKeanggotaan);
 
-                    // Tambahkan club ID ke list lokal dan muat ulang tampilan
+                    // Update tombol, tanpa reload semua pane
+                    joinButton.setText("✓ Joined");
+                    joinButton.setDisable(true);
+                    joinButton.setStyle("-fx-background-color: grey;");
                     userJoinedClubsIds.add(club.getClubId());
-                    loadAndDisplayClubs(nrp);
 
                     System.out.println("Berhasil bergabung dengan klub: " + club.getNamaClub());
                 } else {
@@ -187,35 +222,27 @@ public class AllClubPage {
         return pane;
     }
 
-    @FXML
     private void loadAndDisplayClubs(String nrp) {
-        List<club> allClubs = new ArrayList<>();
-        try {
-            ClubDAO clubDAO = new ClubDAO();
-            allClubs = clubDAO.getAllClubs();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
         if (allClubContainer != null) {
             allClubContainer.getChildren().clear();
         } else {
             return;
         }
 
-        // Posisi awal dari kartu pertama (sesuai FXML)
+        int startIndex = (currentPage - 1) * CLUBS_PER_PAGE;
+        int endIndex = Math.min(startIndex + CLUBS_PER_PAGE, allClubs.size());
+
         double startX = 23.0;
         double startY = 24.0;
-
-        // Ukuran dan jarak
         double cardWidth = 378.0;
         double cardHeight = 200.0;
-        double hGap = 20.0; // jarak horizontal antar card
-        double vGap = 20.0; // jarak vertikal antar card
+        double hGap = 20.0;
+        double vGap = 20.0;
         int cardsPerRow = 2;
 
         int index = 0;
-        for (club cl : allClubs) {
+        for (int i = startIndex; i < endIndex; i++) {
+            club cl = allClubs.get(i);
             if (!userJoinedClubsIds.contains(cl.getClubId())) {
                 Pane clubCard = createClubCard(cl, nrp);
 
@@ -232,12 +259,8 @@ public class AllClubPage {
                 index++;
             }
         }
-
-        // Optional: otomatis tinggi Pane disesuaikan jika perlu
-        int totalRows = (int) Math.ceil((double) index / cardsPerRow);
-        double totalHeight = startY + totalRows * (cardHeight + vGap);
-        allClubContainer.setPrefHeight(totalHeight);
     }
+
 
     @FXML
     public void onHomePage(ActionEvent event) throws IOException, SQLException {

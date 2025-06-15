@@ -47,14 +47,14 @@ public class myClubPage {
 
             int column = 0;
             int row = 0;
-            double spacingX = 400; // jarak antar kolom (horizontal)
-            double spacingY = 240; // jarak antar baris (vertikal)
+            double spacingX = 400;
+            double spacingY = 240;
 
             for (int i = 0; i < keanggotaanList.size(); i++) {
                 keanggotaan k = keanggotaanList.get(i);
                 club club = clubDAO.getClubById(k.getClubId());
 
-                Pane card = createClubCard(club);
+                Pane card = createClubCard(club, k.getKeanggotaanId());
 
                 double x = column * spacingX + 20;
                 double y = row * spacingY + 20;
@@ -75,7 +75,7 @@ public class myClubPage {
         }
     }
     @FXML
-    private Pane createClubCard(club club) {
+    private Pane createClubCard(club club, int keanggotaanId) {
         Pane card = new Pane();
         card.setPrefSize(378, 200);
         card.setStyle("-fx-background-color: white; -fx-background-radius: 20;");
@@ -107,8 +107,24 @@ public class myClubPage {
         textDeskripsi.setWrapText(true);
         textDeskripsi.setEditable(false);
 
-        card.getChildren().addAll(nama, tahun, pendiri, orgPro, deskripsi, textDeskripsi);
+        Button leaveButton = new Button("Leave");
+        leaveButton.setLayoutX(290);
+        leaveButton.setLayoutY(14);
+        leaveButton.setOnAction(e -> {
+            try {
+                leaveClubById(keanggotaanId);
+                clubContainer.getChildren().remove(card);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        card.getChildren().addAll(nama, tahun, pendiri, orgPro, deskripsi, textDeskripsi, leaveButton);
         return card;
+    }
+
+    private void leaveClubById(int keanggotaanId) throws SQLException {
+        keanggotaanDAO.deleteKeanggotaan(keanggotaanId);
     }
 
     @FXML

@@ -5,9 +5,6 @@ module com.example.p1 {
     requires jdk.jdi;
     requires java.desktop;
 
-
-    opens clubApp to javafx.fxml;
-    exports clubApp;
     exports db;
     opens db to javafx.fxml;
     exports currentUser;
@@ -16,4 +13,5 @@ module com.example.p1 {
     opens clubApp.General to javafx.fxml;
     exports clubApp.Admin;
     opens clubApp.Admin to javafx.fxml;
+    opens Model to javafx.base;
 }

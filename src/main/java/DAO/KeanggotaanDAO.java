@@ -162,6 +162,18 @@
             }
         }
 
+        public List<Integer> getAllKeanggotaanIds() throws SQLException {
+            List<Integer> ids = new ArrayList<>();
+            String query = "SELECT keanggotaan_id FROM keanggotaan ORDER BY keanggotaan_id";
+            try (PreparedStatement stmt = conn.prepareStatement(query);
+                 ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    ids.add(rs.getInt("keanggotaan_id"));
+                }
+            }
+            return ids;
+        }
+
         public void updateStatusKeanggotaan(int kgId, String status) throws SQLException {
             String query = "UPDATE keanggotaan SET status = ? WHERE keanggotaan_id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
