@@ -1,6 +1,7 @@
 package clubApp.Admin;
 
 import currentUser.SessionManager;
+import currentUser.ShowAlert;
 import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.collections.FXCollections;
@@ -175,29 +176,17 @@ public class AddUpdateEventPage {
         LocalDate end = endField.getValue();
 
         if (start == null || end == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Tanggal Tidak Lengkap");
-            alert.setHeaderText(null);
-            alert.setContentText("Tanggal mulai dan akhir harus diisi.");
-            alert.showAndWait();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Tanggal Tidak Lengkap", "Tanggal mulai dan akhir harus diisi.");
             return;
         }
 
         if (start.isBefore(LocalDate.now())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Tanggal Tidak Valid");
-            alert.setHeaderText(null);
-            alert.setContentText("Tanggal mulai harus hari ini atau setelah hari ini.");
-            alert.showAndWait();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Tanggal Tidak Valid", "Tanggal mulai harus hari ini atau setelah hari ini.");
             return;
         }
 
         if (end.isBefore(start)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Tanggal Tidak Valid");
-            alert.setHeaderText(null);
-            alert.setContentText("Tanggal akhir tidak boleh sebelum tanggal mulai.");
-            alert.showAndWait();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Tanggal Tidak Valid", "Tanggal akhir tidak boleh sebelum tanggal mulai.");
             return;
         }
 
@@ -206,7 +195,6 @@ public class AddUpdateEventPage {
             int jenisKegiatanId = jenisKegiatanMap.getOrDefault(namaJenis, -1);
 
             if (kegiatanIdCurrent == 0) {
-                // Tambah baru
                 int kegiatanId = getAvailableKegiatanId(conn);
                 kegiatanIdCurrent = kegiatanId;
 
@@ -227,7 +215,7 @@ public class AddUpdateEventPage {
                 stmtJadwal.setInt(4, kegiatanId);
                 stmtJadwal.executeUpdate();
 
-                System.out.println("Kegiatan baru berhasil ditambahkan.");
+                ShowAlert.showAlert(Alert.AlertType.INFORMATION, "Berhasil", "Event berhasil ditambahkan.");
             } else {
                 // Update
                 PreparedStatement stmt = conn.prepareStatement(
@@ -248,12 +236,14 @@ public class AddUpdateEventPage {
                 stmtJadwal.setInt(3, kegiatanIdCurrent);
                 stmtJadwal.executeUpdate();
 
-                System.out.println("Kegiatan berhasil diupdate.");
+                ShowAlert.showAlert(Alert.AlertType.INFORMATION, "Berhasil", "Event berhasil diupdate.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Kesalahan", "Gagal memproses data event.");
         }
     }
+
 
     private int getAvailableJadwalId(Connection conn) throws SQLException {
         String query = "SELECT jadwal_id FROM jadwal ORDER BY jadwal_id ASC";

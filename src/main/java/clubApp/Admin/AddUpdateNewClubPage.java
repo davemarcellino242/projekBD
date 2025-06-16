@@ -1,6 +1,7 @@
 package clubApp.Admin;
 
 import currentUser.SessionManager;
+import currentUser.ShowAlert;
 import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -73,6 +75,8 @@ public class AddUpdateNewClubPage {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Kesalahan", "Gagal memuat daftar kategori.");
+
         }
     }
 
@@ -90,6 +94,7 @@ public class AddUpdateNewClubPage {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Kesalahan", "Gagal memuat data club admin.");
         }
     }
 
@@ -121,6 +126,7 @@ public class AddUpdateNewClubPage {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Kesalahan", "Gagal memuat data club.");
         }
     }
 
@@ -138,15 +144,19 @@ public class AddUpdateNewClubPage {
     @FXML
     public void doneButton() {
         if (namaClub.getText().isEmpty() || namaPendiriClub.getText().isEmpty() || idPendiriClub.getText().isEmpty()) {
+            ShowAlert.showAlert(Alert.AlertType.WARNING, "Peringatan", "Semua field wajib diisi.");
             return;
         }
 
         if (pilihanKe.getValue() > clubIds.size()) {
             createNewClub();
+            ShowAlert.showAlert(Alert.AlertType.INFORMATION, "Sukses", "ADD CLUB BERHASIL");
         } else {
             updateExistingClub();
+            ShowAlert.showAlert(Alert.AlertType.INFORMATION, "Sukses", "UPDATE CLUB BERHASIL");
         }
     }
+
 
     private void createNewClub() {
         try (Connection conn = DBConnector.connect()) {
@@ -209,6 +219,8 @@ public class AddUpdateNewClubPage {
             clubIdCurrent = newClubId;
         } catch (SQLException e) {
             e.printStackTrace();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Kesalahan", "Gagal menambahkan club ke database.");
+
         }
     }
 
@@ -237,6 +249,8 @@ public class AddUpdateNewClubPage {
             update.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            ShowAlert.showAlert(Alert.AlertType.ERROR, "Kesalahan", "Gagal mengupdate data club.");
+
         }
     }
 

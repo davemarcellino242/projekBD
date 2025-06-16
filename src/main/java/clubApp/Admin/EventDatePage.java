@@ -1,6 +1,7 @@
 package clubApp.Admin;
 
 import currentUser.SessionManager;
+import currentUser.ShowAlert;
 import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -216,9 +218,11 @@ public class EventDatePage {
                 delKegiatan.executeUpdate();
 
                 ((VBox) pane.getParent()).getChildren().remove(pane); // hilangkan dari tampilan
-                System.out.println("Kegiatan berhasil dihapus.");
+
+                ShowAlert.showAlert(Alert.AlertType.INFORMATION, "Sukses", "Kegiatan berhasil dihapus.");
             } catch (SQLException ex) {
                 ex.printStackTrace();
+                ShowAlert.showAlert(Alert.AlertType.ERROR, "Gagal", "Terjadi kesalahan saat menghapus kegiatan.");
             }
         });
 
