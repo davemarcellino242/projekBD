@@ -1,6 +1,7 @@
 package clubApp.General;
 
 import currentUser.SessionManager;
+import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,14 +27,18 @@ public class LogInController {
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private ComboBox<String> Role;
 
     public void initialize() {
-
+        Role.getItems().addAll("Member", "Admin");
+        Role.setValue("Member");
     }
     @FXML
     public void logInButton(ActionEvent event) {
         String nrp = usernameField.getText().toLowerCase();
         String inputPassword = passwordField.getText();
+
 
         if (nrp.isEmpty() || inputPassword.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Login Gagal", "NRP dan password harus diisi.");
@@ -72,7 +77,6 @@ public class LogInController {
                     return;
                 }
 
-                // Bangun objek dari tabel berelasi
                 Model.fakultas f = new Model.fakultas(
                         rs.getString("fakultas_id"),
                         rs.getString("nama_fakultas")
@@ -97,12 +101,14 @@ public class LogInController {
                         true
                 );
 
-                // Simpan user ke session
                 SessionManager.setCurrentUser(mhs);
-
-                // Lanjut ke halaman berikut
                 showAlert(Alert.AlertType.INFORMATION, "Login Berhasil", "Selamat datang " + mhs.getNama() + "!");
-                switchToHomePage(event);
+                String selectedRole = Role.getValue();
+                if ("Admin".equalsIgnoreCase(selectedRole)) {
+                    SwitchPage.navigate(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin");
+                } else {
+                    SwitchPage.navigate(event, "/General/Home-Page.fxml", "Home Page");
+                }
 
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Gagal", "NRP tidak ditemukan.");
@@ -126,24 +132,8 @@ public class LogInController {
     }
 
     @FXML
-    public void switchToHomePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Home-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Home page");
-        stage.show();
-        stage.centerOnScreen();
+    public void switchToSignUp(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Sign_Up.fxml", "Sign up");
     }
 
-    @FXML
-    public void switchToSignUp(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Sign_Up.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Sign up");
-        stage.show();
-        stage.centerOnScreen();
-    }
 }

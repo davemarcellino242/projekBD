@@ -1,6 +1,7 @@
 package clubApp.General;
 
 import currentUser.SessionManager;
+import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -161,25 +162,46 @@ public class SertifikatPage {
     }
 
     // Navigasi halaman lain
-    @FXML public void onHomePage(ActionEvent event) throws IOException { loadScene(event, "/General/Home-Page.fxml", "Home Page"); }
-    @FXML public void profilePage(ActionEvent event) throws IOException { loadScene(event, "/General/Profile-Page.fxml", "Profile Page"); }
-    @FXML public void allClubPage(ActionEvent event) throws IOException { loadScene(event, "/General/All-Club-Page.fxml", "All Club Page"); }
-    @FXML public void myClubPage(ActionEvent event) throws IOException { loadScene(event, "/General/My-Club-Page.fxml", "My Club Page"); }
-    @FXML public void eventPage(ActionEvent event) throws IOException { loadScene(event, "/General/Event-Page.fxml", "Event Page"); }
-    @FXML public void homePageAdmin(ActionEvent event) throws IOException { loadScene(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin"); }
+    @FXML
+    public void onHomePage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Home-Page.fxml", "Home Page");
+    }
+
+    @FXML
+    public void profilePage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Profile-Page.fxml", "Profile Page");
+    }
+
+    @FXML
+    public void allClubPage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/All-Club-Page.fxml", "All Club Page");
+    }
+
+    @FXML
+    public void myClubPage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/My-Club-Page.fxml", "My Club Page");
+    }
+
+    @FXML
+    public void eventPage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Event-Page.fxml", "Event Page");
+    }
+
+    @FXML
+    public void homePageAdmin(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin");
+    }
+
+    @FXML
+    public void sertiPage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Sertifikat-Page.fxml", "Sertifikat Page");
+    }
 
     @FXML
     public void logOutPage(ActionEvent event) throws IOException {
         SessionManager.clearSession();
-        loadScene(event, "/General/Log_in.fxml", "Login Page");
+        SwitchPage.navigate(event, "/General/Log_in.fxml", "Login Page");
     }
 
-    private void loadScene(ActionEvent event, String fxmlPath, String title) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle(title);
-        stage.show();
-        stage.centerOnScreen();
-    }
+
 }

@@ -1,6 +1,7 @@
 package clubApp.Admin;
 
 import currentUser.SessionManager;
+import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -291,44 +292,29 @@ public class AddUpdateNewClubPage {
     // Navigasi
     @FXML
     public void profilePageAdmin(ActionEvent event) throws IOException {
-        navigate(event, "/Admin/Profile-Page-Admin.fxml", "Profile Page Admin");
+        SwitchPage.navigate(event, "/Admin/Profile-Page-Admin.fxml", "Profile Page Admin");
     }
 
     public void personalClubPageAdmin(ActionEvent event) throws IOException {
-        navigate(event, "/Admin/Personal-Club-Page.fxml", "Personal Club Page");
+        SwitchPage.navigate(event, "/Admin/Personal-Club-Page.fxml", "Personal Club Page");
     }
 
     public void logOutPage(ActionEvent event) throws IOException {
         SessionManager.clearSession();
-        navigate(event, "/General/Log_in.fxml", "Login Page");
+        SwitchPage.navigate(event, "/General/Log_in.fxml", "Login Page");
     }
 
     @FXML
     public void onHomePage(ActionEvent event) throws IOException {
-        navigate(event, "/General/Home-Page.fxml", "Home Page");
+        SwitchPage.navigate(event, "/General/Home-Page.fxml", "Profile Page");
     }
 
     @FXML
     public void onHomePageAdmin(ActionEvent event) throws IOException {
-        navigate(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin");
-    }
-
-    private void navigate(ActionEvent event, String path, String title) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(path));
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle(title);
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin");
     }
 
     public void eventDatePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Event-Date-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Event Date Page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/Admin/Event-Date-Page.fxml", "Event Date Page");
     }
 }

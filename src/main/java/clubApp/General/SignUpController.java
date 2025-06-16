@@ -1,5 +1,6 @@
 package clubApp.General;
 
+import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -129,24 +130,13 @@ public class SignUpController {
     }
 
     private void goToLoginPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Log_in.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Log in Page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/General/Log_in.fxml", "Log in Page");
     }
 
-    public void back(ActionEvent event)throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Log_in.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Admin Main Page");
-        stage.show();
-        stage.centerOnScreen();
+    public void back(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Log_in.fxml", "Admin Main Page");
     }
+
 
 }
 

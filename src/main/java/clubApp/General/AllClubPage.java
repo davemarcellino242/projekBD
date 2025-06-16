@@ -7,6 +7,7 @@ import Model.club;
 import Model.keanggotaan;
 import Model.mahasiswa;
 import currentUser.SessionManager;
+import currentUser.SwitchPage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -263,80 +264,38 @@ public class AllClubPage {
 
 
     @FXML
-    public void onHomePage(ActionEvent event) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Home-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Profile Page");
-        stage.show();
-
-        stage.centerOnScreen();
+    public void onHomePage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Home-Page.fxml", "Profile Page");
     }
+
     @FXML
-    public void profilePage(ActionEvent event) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Profile-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Profile Page");
-        stage.show();
-        stage.centerOnScreen();
+    public void profilePage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Profile-Page.fxml", "Profile Page");
     }
 
     @FXML
     public void allClubPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/All-Club-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("All Club Page");
-        stage.show();
-
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/General/All-Club-Page.fxml", "All Club Page");
     }
 
     @FXML
     public void myClubPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/My-Club-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("My Club Page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/General/My-Club-Page.fxml", "My Club Page");
     }
 
     @FXML
     public void eventPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Event-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Event Page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/General/Event-Page.fxml", "Event Page");
     }
 
     @FXML
     public void logOutPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Log_in.fxml"));
         SessionManager.clearSession();
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Login page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/General/Log_in.fxml", "Login page");
     }
 
     public void homePageAdmin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Home-Page-Admin.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Home Page Admin");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin");
     }
+
 }

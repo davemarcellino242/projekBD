@@ -3,6 +3,7 @@ package clubApp.Admin;
 import DAO.KeanggotaanDAO;
 import Model.*;
 import currentUser.SessionManager;
+import currentUser.SwitchPage;
 import db.DBConnector;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -243,66 +244,32 @@ public class ViewInfoPersonalClub {
     }
 
 
+    @FXML
     public void profilePageAdmin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Profile-Page-Admin.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Profile Page Admin");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/Admin/Profile-Page-Admin.fxml", "Profile Page Admin");
     }
 
     public void personalClubPageAdmin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Personal-Club-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Personal Club Page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/Admin/Personal-Club-Page.fxml", "Personal Club Page");
     }
 
     public void logOutPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Log_in.fxml"));
         SessionManager.clearSession();
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Login page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/General/Log_in.fxml", "Login Page");
     }
 
     @FXML
-    public void onHomePage(ActionEvent event) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/General/Home-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Profile Page");
-        stage.show();
-        stage.centerOnScreen();
+    public void onHomePage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/General/Home-Page.fxml", "Profile Page");
     }
 
     @FXML
     public void onHomePageAdmin(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Home-Page-Admin.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Home Page Admin");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/Admin/Home-Page-Admin.fxml", "Home Page Admin");
     }
 
     public void eventDatePage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Event-Date-Page.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Event Date Page");
-        stage.show();
-        stage.centerOnScreen();
+        SwitchPage.navigate(event, "/Admin/Event-Date-Page.fxml", "Event Date Page");
     }
+
 }
