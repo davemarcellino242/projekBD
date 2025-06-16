@@ -35,6 +35,7 @@ public class EventDatePage {
 
     @FXML
     public void initialize() {
+        deactivateExpiredEvents();
         loadClubsForAdmin();
         clubAdmin.setOnAction(e -> {
             String selectedClub = clubAdmin.getValue();

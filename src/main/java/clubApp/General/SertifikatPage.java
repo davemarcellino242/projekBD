@@ -41,17 +41,19 @@ public class SertifikatPage {
     private void loadDataFromDatabase() {
         semuaKartu.clear();
 
-        String query = """
+
+
+        try (Connection conn = DBConnector.connect()){
+            String query = """
             SELECT k.nama_kegiatan, c.nama_club, p.status_hadir, r.tanggal_registrasi
             FROM data_registrasi_kegiatan r
             JOIN peserta_kegiatan p ON r.registrasi_id = p.registrasi_id
             JOIN kegiatan_club k ON r.kegiatan_id = k.kegiatan_id
             JOIN data_club c ON k.club_id = c.club_id
-            WHERE r.nrp = ? AND p.sertifikat_peserta = 'Yes'
+            WHERE r.nrp = ? AND p.sertifikat_peserta = 'YES'
         """;
 
-        try (Connection conn = DBConnector.connect();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+            PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setString(1, SessionManager.getCurrentUser().getNrp());
             ResultSet rs = stmt.executeQuery();
@@ -61,6 +63,8 @@ public class SertifikatPage {
                 String namaClub = rs.getString("nama_club");
                 String statusHadir = rs.getString("status_hadir");
                 String tanggal = rs.getDate("tanggal_registrasi").toString();
+
+                System.out.println("> " + namaKegiatan + " - " + namaClub + " - " + statusHadir + " - " + tanggal);
 
                 Pane card = createSertiCardPane(namaKegiatan, namaClub, statusHadir, tanggal);
                 semuaKartu.add(card);
@@ -82,12 +86,13 @@ public class SertifikatPage {
     }
 
     private void tampilkanHalaman(int halaman) {
-        if (sertiContainer != null) {
-            sertiContainer.getChildren().clear();
-        } else {
+
+        if (sertiContainer == null) {
+            System.err.println("sertiContainer is null!");
             return;
         }
 
+        sertiContainer.getChildren().clear();
         int startIndex = (halaman - 1) * KARTU_PER_HALAMAN;
         int endIndex = Math.min(startIndex + KARTU_PER_HALAMAN, semuaKartu.size());
 

@@ -40,11 +40,12 @@ public class EventPage {
 
     private void loadAllEventData() {
         try (Connection conn = DBConnector.connect()) {
-            String query = "SELECT kc.nama_kegiatan, d.nama_club, jk.nama_jenis_kegiatan, j.start_date, j.end_date, kc.kegiatan_id " +
+            String query =  "SELECT kc.nama_kegiatan, d.nama_club, jk.nama_jenis_kegiatan, j.start_date, j.end_date, kc.kegiatan_id " +
                     "FROM kegiatan_club kc " +
                     "JOIN data_club d ON kc.club_id = d.club_id " +
                     "JOIN jenis_kegiatan jk ON kc.jenis_kegiatan_id = jk.jenis_kegiatan_id " +
-                    "JOIN jadwal j ON kc.kegiatan_id = j.kegiatan_id";
+                    "JOIN jadwal j ON kc.kegiatan_id = j.kegiatan_id " +
+                    "WHERE kc.active = 'Yes'";
             ResultSet rs = conn.createStatement().executeQuery(query);
 
             while (rs.next()) {

@@ -34,6 +34,7 @@ public class AddUpdateEventPage {
 
     @FXML
     public void initialize() {
+        updateExpiredEvents();
         loadClubsForAdmin();
         loadJenisKegiatanOptions();
         loadLokasiOptions();
@@ -208,9 +209,7 @@ public class AddUpdateEventPage {
                 int kegiatanId = getAvailableKegiatanId(conn);
                 kegiatanIdCurrent = kegiatanId;
 
-                PreparedStatement stmt = conn.prepareStatement(
-                        "INSERT INTO kegiatan_club (kegiatan_id, nama_kegiatan, club_id, lokasi_id, jenis_kegiatan_id) VALUES (?, ?, ?, ?, ?)"
-                );
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO kegiatan_club (kegiatan_id, nama_kegiatan, club_id, lokasi_id, jenis_kegiatan_id, active) VALUES (?, ?, ?, ?, ?, 'Yes')");
                 stmt.setInt(1, kegiatanId);
                 stmt.setString(2, namaKegiatan);
                 stmt.setInt(3, clubId);
@@ -291,8 +290,20 @@ public class AddUpdateEventPage {
         return id;
     }
 
-
-
+    private void updateExpiredEvents() {
+        try (Connection conn = DBConnector.connect()) {
+            String sql = """
+            UPDATE kegiatan_club kc
+            SET active = 'No'
+            FROM jadwal j
+            WHERE kc.kegiatan_id = j.kegiatan_id AND j.end_date < CURRENT_DATE
+        """;
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void profilePageAdmin(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Profile-Page-Admin.fxml"));

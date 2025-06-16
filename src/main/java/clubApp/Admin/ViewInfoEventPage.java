@@ -34,6 +34,7 @@ public class ViewInfoEventPage {
     @FXML private TableColumn<pesertaEvent, String> sertiColumn;
 
     private ObservableList<pesertaEvent> dataList = FXCollections.observableArrayList();
+    private int currentKegiatanId;
 
     @FXML
     public void initialize() {
@@ -49,7 +50,7 @@ public class ViewInfoEventPage {
         statusColumn.setOnEditCommit(event -> {
             pesertaEvent peserta = event.getRowValue();
             peserta.setStatusHadir(event.getNewValue());
-            updateStatusInDatabase(peserta.getNrp(), event.getNewValue(), "status_hadir");
+            updateStatusInDatabase(peserta.getNrp(), event.getNewValue(), "status_hadir", currentKegiatanId);
         });
 
         sertiColumn.setCellValueFactory(new PropertyValueFactory<>("sertifikat"));
@@ -57,11 +58,12 @@ public class ViewInfoEventPage {
         sertiColumn.setOnEditCommit(event -> {
             pesertaEvent peserta = event.getRowValue();
             peserta.setSertifikat(event.getNewValue());
-            updateStatusInDatabase(peserta.getNrp(), event.getNewValue(), "sertifikat_peserta");
+            updateStatusInDatabase(peserta.getNrp(), event.getNewValue(), "sertifikat_peserta", currentKegiatanId);
         });
     }
 
     public void loadPesertaData(int kegiatanId) {
+        currentKegiatanId = kegiatanId;
         dataList.clear();
         String query = """
                 SELECT d.nrp, d.nama, pr.nama_program, r.status_registrasi, r.tanggal_registrasi, p.status_hadir, p.sertifikat_peserta
@@ -94,13 +96,16 @@ public class ViewInfoEventPage {
         }
     }
 
-    private void updateStatusInDatabase(String nrp, String newValue, String field) {
+    private void updateStatusInDatabase(String nrp, String newValue, String field, int kegiatanId) {
         String sql = "UPDATE peserta_kegiatan SET " + field + " = ? " +
-                "WHERE registrasi_id = (SELECT registrasi_id FROM data_registrasi_kegiatan WHERE nrp = ?)";
+                "WHERE registrasi_id = (" +
+                "SELECT registrasi_id FROM data_registrasi_kegiatan " +
+                "WHERE nrp = ? AND kegiatan_id = ?)";
         try (Connection conn = DBConnector.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, newValue);
             stmt.setString(2, nrp);
+            stmt.setInt(3, kegiatanId);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
