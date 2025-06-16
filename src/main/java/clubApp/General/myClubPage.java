@@ -65,7 +65,7 @@ public class myClubPage {
                 clubContainer.getChildren().add(card);
 
                 column++;
-                if (column > 1) { // 2 kolom per baris
+                if (column > 1) {
                     column = 0;
                     row++;
                 }
