@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clubApp.General.SignUpController">
+   <children>
+      <ImageView fitHeight="766.0" fitWidth="390.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/PCUSIGNUP.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="385.0" layoutY="-1.0" prefHeight="767.0" prefWidth="514.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e);">
+         <children>
+            <Text fill="WHITE" layoutX="70.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP PAGE" wrappingWidth="271.80010986328125">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="38.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nrp" layoutX="70.0" layoutY="234.0" prefHeight="58.0" prefWidth="375.0" promptText="NRP" style="-fx-border-color: #3F5D9D;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Button fx:id="SignUpLinked" layoutX="66.0" layoutY="576.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="46.0" prefWidth="383.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: WHITE; -fx-font-family: Roboto; -fx-font-weight: bold;" text="Sign Up" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="16.0" />
+               </font>
+            </Button>
+            <Text fill="#9a9ca1" layoutX="70.0" layoutY="132.0" stroke="#5e6166" strokeType="OUTSIDE" strokeWidth="0.0" text="Rules :" wrappingWidth="288.53662109375">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#9a9ca1" layoutX="70.0" layoutY="152.0" stroke="#5e6166" strokeType="OUTSIDE" strokeWidth="0.0" text="1. NRP akan ditetapkan sebagai username" wrappingWidth="288.53662109375">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#9a9ca1" layoutX="70.0" layoutY="173.0" stroke="#5e6166" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Isi data sesuai dengan ketentuan halaman ini " wrappingWidth="330.1365966796875">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#9a9ca1" layoutX="70.0" layoutY="193.0" stroke="#5e6166" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Password akan ditetapkan dari tanggal lahir dengan   " wrappingWidth="403.7366943359375">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Text fill="#9a9ca1" layoutX="87.0" layoutY="213.0" stroke="#5e6166" strokeType="OUTSIDE" strokeWidth="0.0" text="dengan format : YYYYDDMM, cth: 20060224" wrappingWidth="403.7366943359375">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="fakultas" layoutX="70.0" layoutY="456.0" prefHeight="43.0" prefWidth="375.0" promptText="Fakultas" style="-fx-background-color: white;" />
+            <TextField fx:id="namaLengkap" layoutX="70.0" layoutY="307.0" prefHeight="58.0" prefWidth="375.0" promptText="Nama Lengkap" style="-fx-border-color: #3F5D9D;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="tanggalLahir" layoutX="70.0" layoutY="384.0" prefHeight="58.0" prefWidth="375.0" promptText="Tanggal Lahir : YYYY-MM-DD" style="-fx-border-color: #3F5D9D;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="prodi" layoutX="70.0" layoutY="516.0" prefHeight="43.0" prefWidth="187.0" promptText="Program Studi" />
+            <ComboBox fx:id="program" layoutX="268.0" layoutY="516.0" prefHeight="43.0" prefWidth="179.0" promptText="Program" />
+            <Button fx:id="backSignUp" layoutX="35.0" layoutY="712.0" mnemonicParsing="false" onAction="#back" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: white;" text="&lt;&lt; BACK" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

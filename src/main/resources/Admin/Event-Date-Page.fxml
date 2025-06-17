@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1107.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #7f7f7f, #ffffff); -fx-border-color: #A9A9A9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clubApp.Admin.EventDatePage">
+    <children>
+        <Pane prefHeight="734.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: #A9A9A9;">
+            <children>
+                <Button layoutX="13.0" layoutY="695.0" mnemonicParsing="false" onAction="#logOutPage" prefHeight="25.0" prefWidth="222.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: yellow;" text="⤮ Log Out" textFill="WHITE">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#profilePageAdmin" prefHeight="46.0" prefWidth="222.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: yellow;" text="Profile" textFill="WHITE">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="13.0" layoutY="105.0" mnemonicParsing="false" onAction="#onHomePageAdmin" prefHeight="25.0" prefWidth="222.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: yellow;" text="☖ Home" textFill="WHITE">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Text fill="WHITE" layoutX="13.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PETRA CLUB HUB" wrappingWidth="247.33333333333331">
+                    <font>
+                        <Font name="Arial Black" size="18.0" />
+                    </font>
+                    <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="1.0" green="1.0" blue="1.0" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </RadialGradient>
+                    </stroke>
+                </Text>
+                <Button layoutX="13.0" layoutY="140.0" mnemonicParsing="false" onAction="#personalClubPageAdmin" prefHeight="25.0" prefWidth="222.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: yellow;" text=" ✠Personal Club" textFill="WHITE">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="13.0" layoutY="177.0" mnemonicParsing="false" onAction="#eventDatePage" prefHeight="25.0" prefWidth="222.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: yellow;" text="〄 Event Date" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+                <Button layoutX="14.0" layoutY="659.0" mnemonicParsing="false" onAction="#onHomePage" prefHeight="25.0" prefWidth="222.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: yellow;" text="Member" textFill="WHITE">
+                    <font>
+                        <Font name="Berlin Sans FB" size="15.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+        <Text fill="WHITE" layoutX="588.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR EVENT &gt;" wrappingWidth="186.0000508626302">
+            <font>
+                <Font name="Berlin Sans FB" size="26.0" />
+            </font>
+            <stroke>
+                <RadialGradient centerX="0.5" centerY="0.5" cycleMethod="REFLECT" focusAngle="5.19" radius="0.5">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="1.0" green="1.0" blue="1.0" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </RadialGradient>
+            </stroke>
+        </Text>
+      <Button fx:id="addEventButton" layoutX="1010.0" layoutY="684.0" mnemonicParsing="false" onAction="#addUpdateEventPage" text="AddEvent" />
+      <ComboBox fx:id="clubAdmin" layoutX="270.0" layoutY="49.0" prefHeight="26.0" prefWidth="822.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: white;" />
+      <VBox fx:id="paneContainer" layoutX="270.0" layoutY="96.0" prefHeight="588.0" prefWidth="822.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #000000, #2e2e2e); -fx-border-color: white;" />
+    </children>
+</AnchorPane>

@@ -259,6 +259,10 @@ public class EventDatePage {
         SwitchPage.navigate(event, "/Admin/Event-Date-Page.fxml", "Event Date Page");
     }
 
+    public void addUpdateEventPage(ActionEvent event) throws IOException {
+        SwitchPage.navigate(event, "/Admin/Add-Update-Event-Page.fxml", "Update Event Page");
+    }
+
     private void showAlert(String message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle("Peringatan");
