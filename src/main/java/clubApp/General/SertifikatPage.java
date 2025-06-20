@@ -126,7 +126,7 @@ public class SertifikatPage {
     private Pane createSertiCardPane(String namaKegiatan, String namaClub, String statusHadir, String tanggal) {
         Pane pane = new Pane();
         pane.setPrefSize(378, 200);
-        pane.setStyle("-fx-background-color: white; -fx-background-radius: 20;");
+        pane.setStyle("-fx-background-color: gray;");
 
         TextField tfNamaKegiatan = new TextField(namaKegiatan);
         tfNamaKegiatan.setLayoutX(30); tfNamaKegiatan.setLayoutY(14);

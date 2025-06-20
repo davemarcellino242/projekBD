@@ -92,7 +92,7 @@ public class EventPage {
     private Pane createEventPane(String id, String nama, String club, String jenis, String tanggal) {
         Pane pane = new Pane();
         pane.setPrefSize(750, 150);
-        pane.setStyle("-fx-background-color: white; -fx-border-radius: 5; -fx-border-color: black;");
+        pane.setStyle("-fx-background-color: gray;");
 
         TextField tfNama = new TextField(nama);
         tfNama.setLayoutX(140); tfNama.setLayoutY(22);
@@ -117,6 +117,7 @@ public class EventPage {
             joinBtn.setText("Joined");
             joinBtn.setDisable(true);
         });
+        joinBtn.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
         pane.getChildren().addAll(tfNama, tfClub, tfTanggal, tfJenis, joinBtn);
         return pane;

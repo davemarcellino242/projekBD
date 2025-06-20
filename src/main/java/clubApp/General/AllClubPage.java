@@ -80,7 +80,7 @@ public class AllClubPage {
         Pane pane = new Pane();
         pane.setPrefHeight(200.0);
         pane.setPrefWidth(378.0);
-        pane.setStyle("-fx-background-color: white; -fx-background-radius: 20;");
+        pane.setStyle("-fx-background-color: gray; -fx-text-fill: white");
 
         pane.setLayoutX(23.0);
         pane.setLayoutY(21.0);
@@ -158,7 +158,7 @@ public class AllClubPage {
         joinButton.setMnemonicParsing(false);
         joinButton.setPrefHeight(28.0);
         joinButton.setPrefWidth(341.0);
-        joinButton.setStyle("-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5);");
+        joinButton.setStyle("-fx-background-color: black;");
         joinButton.setTextFill(Color.WHITE);
         joinButton.setFont(new Font("Berlin Sans FB", 15.0));
 

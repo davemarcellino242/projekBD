@@ -151,7 +151,7 @@ public class EventDatePage {
     private Pane createEventPane(int id, String nama, String jenis, String start, String end, String lokasi, String club) {
         Pane pane = new Pane();
         pane.setPrefSize(1200, 173);
-        pane.setStyle("-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5); -fx-background-radius: 20;");
+        pane.setStyle("-fx-background-color: gray; -fx-border-color: black;");
 
         Text namaText = new Text("Nama Event: " + nama);
         namaText.setLayoutX(25); namaText.setLayoutY(37); namaText.setStyle("-fx-fill: white;");
@@ -184,6 +184,7 @@ public class EventDatePage {
                 ex.printStackTrace();
             }
         });
+        update.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
         Button view = new Button("👁 View Info");
         view.setLayoutX(291); view.setLayoutY(131); view.setPrefWidth(240);
@@ -203,6 +204,7 @@ public class EventDatePage {
                 ex.printStackTrace();
             }
         });
+        view.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
 
         Button delete = new Button("⊠ Delete Event");
@@ -225,10 +227,12 @@ public class EventDatePage {
                 ShowAlert.showAlert(Alert.AlertType.ERROR, "Gagal", "Terjadi kesalahan saat menghapus kegiatan.");
             }
         });
+        delete.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
         pane.getChildren().addAll(namaText, jenisText, jadwalText, lokasiText, clubText, update, view, delete);
         return pane;
     }
+
 
 
     @FXML

@@ -90,7 +90,7 @@ public class PersonalClubPage {
         pane.setLayoutX(layoutX);
         pane.setLayoutY(264);
         pane.setPrefSize(405, 185);
-        pane.setStyle("-fx-background-color: linear-gradient(to bottom, #0D47A1, #1565C0, #42A5F5); -fx-background-radius: 20;");
+        pane.setStyle("-fx-background-color: gray;");
 
         Button updateButton = new Button("✎ Update Data Club");
         updateButton.setLayoutX(16);
@@ -98,6 +98,7 @@ public class PersonalClubPage {
         updateButton.setPrefSize(375, 28);
         updateButton.setStyle("-fx-background-color: linear-gradient(to bottom, #B9FBC0, #34D399, #059669);");
         updateButton.setOnAction(e -> goToUpdatePage(clubId));
+        updateButton.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
         Button viewInfo = new Button("👁 View Info");
         viewInfo.setLayoutX(248);
@@ -105,6 +106,7 @@ public class PersonalClubPage {
         viewInfo.setPrefSize(143, 28);
         viewInfo.setStyle("-fx-background-color: white;");
         viewInfo.setOnAction(e -> viewClubInfo(clubId));
+        viewInfo.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
         Button deleteButton = new Button("⊠ Delete Club");
         deleteButton.setLayoutX(248);

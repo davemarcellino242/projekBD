@@ -79,7 +79,7 @@ public class myClubPage {
     private Pane createClubCard(club club, int keanggotaanId) {
         Pane card = new Pane();
         card.setPrefSize(378, 200);
-        card.setStyle("-fx-background-color: white; -fx-background-radius: 20;");
+        card.setStyle("-fx-background-color: gray;");
 
         Label nama = new Label(club.getNamaClub());
         nama.setLayoutX(27);
@@ -119,6 +119,7 @@ public class myClubPage {
                 ex.printStackTrace();
             }
         });
+        leaveButton.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
         card.getChildren().addAll(nama, tahun, pendiri, orgPro, deskripsi, textDeskripsi, leaveButton);
         return card;
